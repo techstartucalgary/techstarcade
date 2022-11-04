@@ -3,8 +3,8 @@
 Madeline (Capitane)
 Ray
 Dele
-Arya
+Aria
 Evan
-Hannah
+Hana
 Juan
 Tyler
