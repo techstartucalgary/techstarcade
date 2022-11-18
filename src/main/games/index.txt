@@ -1,0 +1,8 @@
+Madeline: PM
+Ray:   Jetpack (TBD)
+Dele:  Tic-tac-toe
+Aria:  Minesweeper
+Evan:  Asteroids
+Hana:  Journey back home
+Juan:  Snake vs. blocks
+Tyler: Space invaders
