@@ -1,5 +1,5 @@
 Madeline: PM
-Ray:   Jetpack (TBD)
+Ray:   RocketMan
 Dele:  Tic-tac-toe
 Aria:  Minesweeper
 Evan:  Asteroids
