@@ -1,7 +1,7 @@
 # TechstArcade 🤖 🕹️ 👾 💻 🌟
-Welcome to TechstArcade, An arcade style chrome extension packed full of your favorite retro mini-games!
+Welcome to TechstArcade, An arcade-style chrome extension packed full of your favorite retro mini-games!
 
-🚧This project is currently **under development**, chek back here for updates! 
+🚧This project is currently **under development**, check back here for updates! 
 {[Project Roadmap](https://github.com/orgs/techstartucalgary/projects/7)}🚧
 
 #
