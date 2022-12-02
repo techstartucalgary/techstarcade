@@ -9,7 +9,13 @@ public class PlayerController : MonoBehaviour
     // private float pillarSpeed;
     private float jumpForce;
     private float moveVertical;
-    private bool isJumping;
+    void OnCollisionEnter2D(Collision2D collision) => Log(collision);
+    void OnCollisionStay2D(Collision2D collision) => Log(collision);
+
+    void Log(Collision2D collision)
+    {
+        Debug.Log($"Called on {name} because a collision with {collision.collider.name}");
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +24,6 @@ public class PlayerController : MonoBehaviour
 
         // pillarSpeed = 2;
         jumpForce = 3;
-        isJumping = false;
         
     }
 
@@ -30,7 +35,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (moveVertical > 0.1f && !isJumping) {
+        if (moveVertical > 0.1f) {  // add a down movements for downward boosts
             player.AddForce(new Vector2(0f, moveVertical * jumpForce), ForceMode2D.Impulse);
         }
     }
