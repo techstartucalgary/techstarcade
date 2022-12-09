@@ -2,7 +2,7 @@
 Welcome to TechstArcade, An arcade-style chrome extension packed full of your favorite retro mini-games!
 
 🚧This project is currently **under development**, check back here for updates! 
-{[Project Roadmap](https://github.com/orgs/techstartucalgary/projects/7)}🚧
+[[Project Roadmap](https://github.com/orgs/techstartucalgary/projects/7)]🚧
 
 #
 ### Developed at [Tech Start UCalgary](https://github.com/techstartucalgary) during the 2022-2023 season
