@@ -22,7 +22,15 @@ class Example1 extends Phaser.Scene {
             this.image.y = event.y;
         }, this);
 
+
+        this.input.keyboard.on('keyup-p', function(event){
+
+            var physicsImage= this.physics.add.image(this.image.x, this.image.y, "GFS");
+            physicsImage.setVelocity(Phaser.Math.RND.integerInRange(-100,100), -300)
+        },this);
     }
+
+ 
 
     // update(delta){
     //     if(this,key_A.isDown)
