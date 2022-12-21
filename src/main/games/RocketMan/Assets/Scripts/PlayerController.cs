@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,12 +14,14 @@ public class PlayerController : MonoBehaviour
 
     private float jumpForce;
     private float moveVertical;
+    // private bool isGameOver = false;
+    // private float restartDelay = 0.5f;
     void OnCollisionEnter2D(Collision2D collision) {
         if(collision.gameObject.tag == "GroundCeil") {
             Debug.Log("You've hit ground!");
         } else if(collision.gameObject.tag == "Stalagmite") {
             Debug.Log("Sitting on a stalagmite");
-            FindObjectOfType<GameState>().GameOver();
+            // FindObjectOfType<GameState>().GameOver();
         }
     }
 
@@ -28,6 +31,7 @@ public class PlayerController : MonoBehaviour
         player = gameObject.GetComponent<Rigidbody2D>();
         player.freezeRotation = true;
         jumpForce = 3;
+        Debug.Log(player);
     }
 
     // Update is called once per frame
@@ -42,6 +46,20 @@ public class PlayerController : MonoBehaviour
             player.AddForce(new Vector2(0f, moveVertical * jumpForce), ForceMode2D.Impulse);
         }
     }
+
+    // public void GameOver() {
+    //     if(!isGameOver) {
+    //         isGameOver = true;
+    //         Debug.Log("Hit something, Game over from the Game state"); 
+    //         // playerController.freezeRotation = false;
+    //         Time.timeScale = 0.5f;
+    //         Invoke("Restart", restartDelay);
+    //     }        
+    // }
+    // void Restart() {
+    //     Time.timeScale = 1;
+    //     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    // }
 }
 
 
