@@ -23,6 +23,6 @@ public class StalaxBehaviour : MonoBehaviour
     }
     private void destroyStalax() {
         Debug.Log("AT THE END");
-        Destroy(stalaxPair);
+        stalax.transform.position = new Vector3(11, 0.5f+(Random.value * 4),0);
     }
 }
