@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("You've hit ground!");
         } else if(collision.gameObject.tag == "Stalagmite") {
             Debug.Log("Sitting on a stalagmite");
+            Time.timeScale = 0;
             // FindObjectOfType<GameState>().GameOver();
         }
     }
@@ -38,6 +39,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         moveVertical = Input.GetAxisRaw("Vertical");
+        if (Input.GetKey("x")) {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                Time.timeScale = 1;
+        }
     }
 
     void FixedUpdate()
