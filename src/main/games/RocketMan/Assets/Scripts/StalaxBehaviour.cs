@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StalaxBehaviour : MonoBehaviour
 {
+    //TODO
+        // manipulate speed based on player progress
     private GameObject stalaxPair;
     private float speed;
     private Transform stalax;
@@ -11,8 +13,7 @@ public class StalaxBehaviour : MonoBehaviour
     {
         stalaxPair = this.gameObject;
         stalax = gameObject.GetComponent<Transform>();
-        speed = 4f;
-        Debug.Log(stalaxPair);
+        speed = 10f;
     }
     void Update()
     {
@@ -23,6 +24,6 @@ public class StalaxBehaviour : MonoBehaviour
     }
     private void destroyStalax() {
         Debug.Log("AT THE END");
-        stalax.transform.position = new Vector3(11, 0.5f+(Random.value * 4),0);
+        stalax.transform.position = new Vector3(18, 0.5f+(Random.value * 4),0);
     }
 }
