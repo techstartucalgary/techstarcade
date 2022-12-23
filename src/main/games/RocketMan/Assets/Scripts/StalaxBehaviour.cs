@@ -5,30 +5,36 @@ using UnityEngine;
 public class StalaxBehaviour : MonoBehaviour
 {
     //TODO
-        // manipulate speed based on player progress
+        // stalax sprites
     public PlayerController playerInfo;
     private Transform stalax;
     private float speed;
     public float playerScore;
+    private bool scoreAdded;
     void Start()
     {
         stalax = gameObject.GetComponent<Transform>();
-        playerScore = playerInfo.scoreKeeper.playerScore;
+        playerScore = playerInfo.score;
         speed = playerScore*0.5f + 5;
+        scoreAdded = false;
     }
     void Update()
     {
         stalax.transform.position += Vector3.left * speed * Time.deltaTime;
+
+        if (stalax.transform.position.x <= 0 && !scoreAdded) {
+            scoreAdded = true;
+            playerInfo.scoreChange();
+            playerScore = playerInfo.score;
+        }
+
         if (stalax.transform.position.x <= -10) {
             restartStalax();
         }
     }
     void restartStalax() {
         stalax.transform.position = new Vector3(17 + 0.5f*speed, 0.15f+(Random.value * 4),0);
-        playerInfo.scoreKeeper.scoreChange();
-        playerScore = playerInfo.scoreKeeper.playerScore;
         speed = playerScore*0.15f + 5;
-        
-        // Debug.Log(playerScore + " " + speed);
+        scoreAdded = false;
     }
 }
