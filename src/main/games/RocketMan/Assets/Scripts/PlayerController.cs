@@ -7,28 +7,28 @@ public class PlayerController : MonoBehaviour
 {   
 
     // TODO 
-        // start scene with 0 y velocity
-            // hardcode zero start velocity or have a new game scene
         // balance game with linear drag and jump and stalax gaps
     private Rigidbody2D player;
 
-    private float jumpForce;
-    private float moveVertical;
-    public bool isGameOver;
     public ScoreKeeper scoreKeeper;
-    private float score;
+    private float _jumpForce;
+    private float _moveVertical;
+    public bool isGameOver;
+    private float _score;
 
     void Start()
     {
         player = gameObject.GetComponent<Rigidbody2D>();
         player.freezeRotation = true;
-        jumpForce = 3;
+        _jumpForce = 3;
         isGameOver = false;
+        player.constraints = RigidbodyConstraints2D.FreezePositionY;
+        Invoke("unFreeze", 0.5f);
     }
 
     void Update()
     {
-        moveVertical = Input.GetAxisRaw("Vertical");
+        _moveVertical = Input.GetAxisRaw("Vertical");
         if (Input.GetKey("x") && isGameOver) {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 Time.timeScale = 1;
@@ -37,18 +37,22 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (moveVertical > 0.1f) {  // add a down movements for downward boosts
-            player.AddForce(new Vector2(0f, moveVertical * jumpForce), ForceMode2D.Impulse);
+        if (_moveVertical > 0.1f) {  // add a down movements for downward boosts
+            player.AddForce(new Vector2(0f, _moveVertical * _jumpForce), ForceMode2D.Impulse);
         }
     }
     void OnCollisionEnter2D(Collision2D collision) {
         if(collision.gameObject.tag == "GroundCeil") {
-            // Debug.Log("You've hit ground!");
+
         } else if(collision.gameObject.tag == "Stalagmite") {
-            // Debug.Log("Sitting on a stalagmite");
+            Debug.Log(scoreKeeper.playerScore);
             Time.timeScale = 0;
             isGameOver = true;
         }
+    }
+
+    void unFreeze() {
+        player.constraints = RigidbodyConstraints2D.None;
     }
 }
 

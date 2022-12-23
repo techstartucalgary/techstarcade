@@ -8,6 +8,5 @@ public class ScoreKeeper : MonoBehaviour
     public PlayerController playerController;
     public void scoreChange() {
         playerScore++;
-        Debug.Log(playerScore);
     }
 }

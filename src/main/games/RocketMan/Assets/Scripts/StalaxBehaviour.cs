@@ -20,15 +20,15 @@ public class StalaxBehaviour : MonoBehaviour
     {
         stalax.transform.position += Vector3.left * speed * Time.deltaTime;
         if (stalax.transform.position.x <= -10) {
-            destroyStalax();
+            restartStalax();
         }
     }
-    void destroyStalax() {
-        stalax.transform.position = new Vector3(18, 0.5f+(Random.value * 4),0);
+    void restartStalax() {
+        stalax.transform.position = new Vector3(17 + 0.5f*speed, 0.15f+(Random.value * 4),0);
         playerInfo.scoreKeeper.scoreChange();
         playerScore = playerInfo.scoreKeeper.playerScore;
-        speed = playerScore*0.5f + 5;
+        speed = playerScore*0.15f + 5;
         
-        Debug.Log(playerScore + " " + speed);
+        // Debug.Log(playerScore + " " + speed);
     }
 }
