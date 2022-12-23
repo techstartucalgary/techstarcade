@@ -6,14 +6,15 @@ public class StalaxBehaviour : MonoBehaviour
 {
     //TODO
         // manipulate speed based on player progress
-    private GameObject stalaxPair;
-    private float speed;
+    public PlayerController playerInfo;
     private Transform stalax;
+    private float speed;
+    public float playerScore;
     void Start()
     {
-        stalaxPair = this.gameObject;
         stalax = gameObject.GetComponent<Transform>();
-        speed = 10f;
+        playerScore = playerInfo.scoreKeeper.playerScore;
+        speed = playerScore*0.5f + 5;
     }
     void Update()
     {
@@ -22,8 +23,12 @@ public class StalaxBehaviour : MonoBehaviour
             destroyStalax();
         }
     }
-    private void destroyStalax() {
-        Debug.Log("AT THE END");
+    void destroyStalax() {
         stalax.transform.position = new Vector3(18, 0.5f+(Random.value * 4),0);
+        playerInfo.scoreKeeper.scoreChange();
+        playerScore = playerInfo.scoreKeeper.playerScore;
+        speed = playerScore*0.5f + 5;
+        
+        Debug.Log(playerScore + " " + speed);
     }
 }

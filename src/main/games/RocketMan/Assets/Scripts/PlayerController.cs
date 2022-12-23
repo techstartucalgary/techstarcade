@@ -14,9 +14,10 @@ public class PlayerController : MonoBehaviour
 
     private float jumpForce;
     private float moveVertical;
-    private bool isGameOver;
+    public bool isGameOver;
+    public ScoreKeeper scoreKeeper;
+    private float score;
 
-    // Start is called before the first frame update
     void Start()
     {
         player = gameObject.GetComponent<Rigidbody2D>();
@@ -25,7 +26,6 @@ public class PlayerController : MonoBehaviour
         isGameOver = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         moveVertical = Input.GetAxisRaw("Vertical");
@@ -43,9 +43,9 @@ public class PlayerController : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision) {
         if(collision.gameObject.tag == "GroundCeil") {
-            Debug.Log("You've hit ground!");
+            // Debug.Log("You've hit ground!");
         } else if(collision.gameObject.tag == "Stalagmite") {
-            Debug.Log("Sitting on a stalagmite");
+            // Debug.Log("Sitting on a stalagmite");
             Time.timeScale = 0;
             isGameOver = true;
         }
