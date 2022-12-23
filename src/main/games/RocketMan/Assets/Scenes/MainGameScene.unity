@@ -575,6 +575,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6683ad81511894dfaa77d56f3a9892be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInfo: {fileID: 0}
+  playerScore: 0
 --- !u!4 &567443164
 Transform:
   m_ObjectHideFlags: 0
@@ -621,6 +623,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6683ad81511894dfaa77d56f3a9892be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInfo: {fileID: 0}
+  playerScore: 0
 --- !u!4 &952689233
 Transform:
   m_ObjectHideFlags: 0
@@ -893,6 +897,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6683ad81511894dfaa77d56f3a9892be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInfo: {fileID: 0}
+  playerScore: 0
 --- !u!4 &1359791309
 Transform:
   m_ObjectHideFlags: 0
@@ -1169,6 +1175,7 @@ GameObject:
   - component: {fileID: 1678526569}
   - component: {fileID: 1678526570}
   - component: {fileID: 1678526571}
+  - component: {fileID: 1678526572}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1302,6 +1309,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea288191260d34fa689b2cd508ef268e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreKeeper: {fileID: 1678526572}
+  isGameOver: 0
+--- !u!114 &1678526572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678526566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2bb6ca3aff584fb7ae481fadcefe825, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerScore: 0
+  playerController: {fileID: 1678526571}
 --- !u!1 &1780852044
 GameObject:
   m_ObjectHideFlags: 0
@@ -1690,6 +1713,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6683ad81511894dfaa77d56f3a9892be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInfo: {fileID: 0}
+  playerScore: 0
 --- !u!4 &2132316497
 Transform:
   m_ObjectHideFlags: 0
