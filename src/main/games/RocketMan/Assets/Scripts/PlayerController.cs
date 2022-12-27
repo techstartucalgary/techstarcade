@@ -24,18 +24,18 @@ public class PlayerController : MonoBehaviour
         isGameOver = false;
         score = 0;
         scoreDisplay.text = score.ToString();
-
-        player.freezeRotation = true;
-        player.constraints = RigidbodyConstraints2D.FreezePositionY;
-        Invoke("unFreeze", 0.5f);
     }
 
     void Update()
     {
         _moveVertical = Input.GetAxisRaw("Vertical");
-        if (Input.GetKey("x") && isGameOver) {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-                Time.timeScale = 1;
+        if (isGameOver) {
+            scoreDisplay.text = "You've died with " + score.ToString() + " points!";
+
+            if (Input.GetKey("x")) {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                    Time.timeScale = 1;
+            }
         }
     }
 
@@ -49,14 +49,9 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.tag == "GroundCeil") {
 
         } else if(collision.gameObject.tag == "Stalagmite") {
-            Debug.Log(score);
             Time.timeScale = 0;
             isGameOver = true;
         }
-    }
-
-    void unFreeze() {
-        player.constraints = RigidbodyConstraints2D.None;
     }
 
     public void scoreChange() {
