@@ -7,34 +7,34 @@ public class StalaxBehaviour : MonoBehaviour
     //TODO
         // stalax sprites
     public PlayerController playerInfo;
-    private Transform stalax;
-    private float speed;
+    private Transform _stalax;
+    private float _speed;
+    private bool _scoreAdded;
     public float playerScore;
-    private bool scoreAdded;
     void Start()
     {
-        stalax = gameObject.GetComponent<Transform>();
+        _stalax = gameObject.GetComponent<Transform>();
         playerScore = playerInfo.score;
-        speed = playerScore*0.5f + 5;
-        scoreAdded = false;
+        _speed = playerScore*0.5f + 5;
+        _scoreAdded = false;
     }
     void Update()
     {
-        stalax.transform.position += Vector3.left * speed * Time.deltaTime;
+        _stalax.transform.position += Vector3.left * _speed * Time.deltaTime;
 
-        if (stalax.transform.position.x <= 0 && !scoreAdded) {
-            scoreAdded = true;
+        if (_stalax.transform.position.x <= 0 && !_scoreAdded) {
+            _scoreAdded = true;
             playerInfo.scoreChange();
             playerScore = playerInfo.score;
         }
 
-        if (stalax.transform.position.x <= -10) {
+        if (_stalax.transform.position.x <= -10) {
             restartStalax();
         }
     }
     void restartStalax() {
-        stalax.transform.position = new Vector3(17 + 0.5f*speed, 0.15f+(Random.value * 4),0);
-        speed = playerScore*0.15f + 5;
-        scoreAdded = false;
+        _stalax.transform.position = new Vector3(17 + 0.5f*_speed, 0.15f+(Random.value * 4),0);
+        _speed = playerScore*0.15f + 5;
+        _scoreAdded = false;
     }
 }
