@@ -46,9 +46,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     void OnCollisionEnter2D(Collision2D collision) {
-        if(collision.gameObject.tag == "GroundCeil") {
-
-        } else if(collision.gameObject.tag == "Stalagmite") {
+        if(collision.gameObject.tag == "Stalagmite") {
             Time.timeScale = 0;
             isGameOver = true;
         }
