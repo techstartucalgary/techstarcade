@@ -44,7 +44,7 @@ public class StalaxBehaviour : MonoBehaviour
         }
     }
     void restartStalax() {
-        _stalax.transform.position = new Vector3(17 + 0.5f*_speed, 0.15f+(Random.value * 4),0);
+        _stalax.transform.position = new Vector3(17 + 0.5f*_speed, 0.2f+(Random.value * 4),0);
         _speed = playerScore*0.15f + 5;
         _scoreAdded = false;
     }
