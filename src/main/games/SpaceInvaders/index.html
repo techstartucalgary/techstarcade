@@ -279,31 +279,26 @@
         redGroup1.children.iterate((child) => {
           if (child === enemy) {
             score += redScoreValue;
-            console.log(score);
           }
         });
         redGroup2.children.iterate((child) => {
           if (child === enemy) {
             score += redScoreValue;
-            console.log(score);
           }
         });
         yellowGroup1.children.iterate((child) => {
           if (child === enemy) {
             score += yellowScoreValue;
-            console.log(score);
           }
         });
         yellowGroup2.children.iterate((child) => {
           if (child === enemy) {
             score += yellowScoreValue;
-            console.log(score);
           }
         });
         greenGroup.children.iterate((child) => {
           if (child === enemy) {
             score += greenScoreValue;
-            console.log(score);
           }
         });
         enemy.disableBody(false, true);
@@ -312,7 +307,9 @@
         updateScore();
       }
 
-      function updateScore() {}
+      function updateScore() {
+        scoreText.setText("Score: " + score);
+      }
 
       function update() {
         scoreText.setText("Score: " + score);
