@@ -312,6 +312,7 @@
       }
 
       function update() {
+        scoreText.setText("Score: " + score);
         if (cursors.left.isDown) {
           spaceship.setVelocityX(-160);
         } else if (cursors.right.isDown) {
