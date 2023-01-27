@@ -66,8 +66,19 @@
       var alienOffsetX = 70;
       var moveLeft = true;
 
+      // Scoring Variables
+      var score = 0;
+      var scoreText;
+      const redScoreValue = 10;
+      const yellowScoreValue = 20;
+      const greenScoreValue = 30;
+
       function create() {
         this.add.image(300, 300, "background");
+
+        scoreText = this.add.text(5, 5, `Score: ${score}`, {
+          font: "20px Courier",
+        });
 
         spaceship = this.physics.add.sprite(300, 580, "spaceship");
         spaceship.setCollideWorldBounds(true);
@@ -265,12 +276,46 @@
       }
 
       function killAlien(playerRocket, enemy) {
+        redGroup1.children.iterate((child) => {
+          if (child === enemy) {
+            score += redScoreValue;
+            console.log(score);
+          }
+        });
+        redGroup2.children.iterate((child) => {
+          if (child === enemy) {
+            score += redScoreValue;
+            console.log(score);
+          }
+        });
+        yellowGroup1.children.iterate((child) => {
+          if (child === enemy) {
+            score += yellowScoreValue;
+            console.log(score);
+          }
+        });
+        yellowGroup2.children.iterate((child) => {
+          if (child === enemy) {
+            score += yellowScoreValue;
+            console.log(score);
+          }
+        });
+        greenGroup.children.iterate((child) => {
+          if (child === enemy) {
+            score += greenScoreValue;
+            console.log(score);
+          }
+        });
         enemy.disableBody(false, true);
         playerRocket.disableBody(true, true);
         rocketDisabled = true;
+        updateScore();
       }
 
+      function updateScore() {}
+
       function update() {
+        scoreText.setText("Score: " + score);
         if (cursors.left.isDown) {
           spaceship.setVelocityX(-160);
         } else if (cursors.right.isDown) {
