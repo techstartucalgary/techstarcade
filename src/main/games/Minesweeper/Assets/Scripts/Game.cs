@@ -81,6 +81,15 @@ public class Game : MonoBehaviour
         }
     }
 
+    private void RevealAllCells() {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                state[x,y].revealed = true;
+            }
+        }
+        board.Draw(state);
+    }
+
     private int CountMines(int cellX, int cellY) {
         int count = 0;
         
@@ -104,7 +113,9 @@ public class Game : MonoBehaviour
             Flag();
         }
         else if (Input.GetMouseButtonDown(0)) {
-            Reveal();
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3Int cellPosition = board.tilemap.WorldToCell(worldPosition);
+            Reveal(cellPosition.x, cellPosition.y);
         }
     }
 
@@ -122,18 +133,36 @@ public class Game : MonoBehaviour
         board.Draw(state);
     }
 
-    private void Reveal() {
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3Int cellPosition = board.tilemap.WorldToCell(worldPosition);
-        Cell cell = GetCell(cellPosition.x, cellPosition.y);
+    private void Reveal(int xPos, int yPos) {
+        Cell cell = GetCell(xPos, yPos);
 
         if (cell.type == Cell.Type.Invalid || cell.revealed || cell.flagged) {
             return;
         }
+        else if (cell.type == Cell.Type.Mine) {
+            cell.exploded = true;
+            RevealAllCells();
+        }
 
         cell.revealed = true;
-        state[cellPosition.x, cellPosition.y] = cell;
+
+        state[xPos, yPos] = cell;
         board.Draw(state);
+
+        if (cell.type == Cell.Type.Empty) {
+            for (int adjacentX = -1; adjacentX <= 1; adjacentX++) {
+                for (int adjacentY = -1; adjacentY <= 1; adjacentY++) {
+                    if (adjacentX == 0 && adjacentY == 0) {
+                        continue;
+                    }
+
+                    int x = xPos + adjacentX;
+                    int y = yPos + adjacentY;
+
+                    Reveal(x, y);
+                }
+            }
+        }
     }
 
     private Cell GetCell(int x, int y) {
