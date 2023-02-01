@@ -10,6 +10,7 @@ public class Game : MonoBehaviour
 
     private Board board;
     private Cell[,] state;
+    private bool firstClick;
 
     private void Awake() {
         board = GetComponentInChildren<Board>();
@@ -20,10 +21,9 @@ public class Game : MonoBehaviour
     }
 
     private void NewGame() {
+        firstClick = true;
         state = new Cell[width, height];
         GenerateCells();
-        GenerateMines();
-        GenerateNumbers();
         Camera.main.transform.position = new Vector3(width / 4f, height / 4f, -10f);
         board.Draw(state);
     }
@@ -39,12 +39,12 @@ public class Game : MonoBehaviour
         }
     }
 
-    private void GenerateMines() {
+    private void GenerateMines(int xClick, int yClick) {
         for (int i = 0; i < mineCount; i++) {
             int x = Random.Range(0, width);
             int y = Random.Range(0, height);
 
-            while (state[x,y].type == Cell.Type.Mine) {
+            while (state[x,y].type == Cell.Type.Mine || ((xClick - 1 <= x && x <= xClick + 1) && (yClick - 1 <= y && y <= yClick + 1))) {
                 x++;
 
                 if (x >= width) {
@@ -115,6 +115,11 @@ public class Game : MonoBehaviour
         else if (Input.GetMouseButtonDown(0)) {
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3Int cellPosition = board.tilemap.WorldToCell(worldPosition);
+            if (firstClick) {
+                firstClick = false;
+                GenerateMines(cellPosition.x, cellPosition.y);
+                GenerateNumbers();
+            }
             Reveal(cellPosition.x, cellPosition.y);
         }
     }
@@ -143,6 +148,8 @@ public class Game : MonoBehaviour
             cell.exploded = true;
             RevealAllCells();
         }
+
+        //if (firstClick) 
 
         cell.revealed = true;
 
