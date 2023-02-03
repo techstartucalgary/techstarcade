@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Space Invaders</title>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
+    <style type="text/css">
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var config = {
+        type: Phaser.AUTO,
+        width: 600,
+        height: 600,
+        physics: {
+          default: "arcade",
+          arcade: {
+            gravity: { y: 0 },
+            debug: false,
+          },
+        },
+        scene: {
+          preload: preload,
+          create: create,
+          update: update,
+        },
+      };
+
+      var game = new Phaser.Game(config);
+
+      function preload() {
+        // Background
+        this.load.image("background", "assets/space_background2.jpg");
+
+        // Player Ship
+        this.load.image("spaceship", "assets/player.png");
+
+        // Player Rocket
+        this.load.image("playerRocket", "assets/rocket.png");
+
+        // Enemies
+        this.load.image("greenEnemy", "assets/green.png");
+        this.load.image("redEnemy", "assets/red.png");
+        this.load.image("yellowEnemy", "assets/yellow.png");
+      }
+
+      // Player Variables
+      var player;
+      var cursors;
+      var spaceship;
+      var playerRocket;
+      var rocketDisabled = true;
+
+      // Enemy Variables
+      var greenGroup;
+      var yellowGroup1;
+      var yellowGroup2;
+      var redGroup1;
+      var redGroup2;
+
+      // Alien Movement Variables
+      var alienOffsetX = 70;
+      var moveLeft = true;
+
+      // Scoring Variables
+      var aliensKilled = 54;
+      var score = 0;
+      var scoreText;
+      const redScoreValue = 10;
+      const yellowScoreValue = 20;
+      const greenScoreValue = 30;
+
+      function create() {
+        this.add.image(300, 300, "background");
+
+        scoreText = this.add.text(5, 5, `Score: ${score}`, {
+          font: "20px Courier",
+        });
+
+        spaceship = this.physics.add.sprite(300, 580, "spaceship");
+        spaceship.setCollideWorldBounds(true);
+
+        // Green Invaders
+        greenGroup = this.physics.add.group({ immovable: false });
+        for (let i = 0; i < 11; i++) {
+          const xOffset = 70;
+          const yOffset = 100;
+          let xPos = xOffset + 46 * i;
+          let enemy = greenGroup.create(xPos, yOffset, "greenEnemy");
+          this.physics.add.existing(enemy);
+        }
+
+        // Yellow Invaders
+        yellowGroup1 = this.physics.add.group({ immovable: false });
+        for (let i = 0; i < 11; i++) {
+          const xOffset = 70;
+          const yOffset = 150;
+          let xPos = xOffset + 46 * i;
+          let enemy = yellowGroup1.create(xPos, yOffset, "yellowEnemy");
+          this.physics.add.existing(enemy);
+        }
+
+        yellowGroup2 = this.physics.add.group({ immovable: false });
+        for (let i = 0; i < 11; i++) {
+          const xOffset = 70;
+          const yOffset = 200;
+          let xPos = xOffset + 46 * i;
+          let enemy = yellowGroup2.create(xPos, yOffset, "yellowEnemy");
+          this.physics.add.existing(enemy);
+        }
+
+        // Red Invaders
+        redGroup1 = this.physics.add.group({ immovable: false });
+        for (let i = 0; i < 11; i++) {
+          const xOffset = 70;
+          const yOffset = 250;
+          let xPos = xOffset + 46 * i;
+          let enemy = redGroup1.create(xPos, yOffset, "redEnemy");
+          this.physics.add.existing(enemy);
+        }
+
+        redGroup2 = this.physics.add.group({ immovable: false });
+        for (let i = 0; i < 11; i++) {
+          const xOffset = 70;
+          const yOffset = 300;
+          let xPos = xOffset + 46 * i;
+          let enemy = redGroup2.create(xPos, yOffset, "redEnemy");
+          this.physics.add.existing(enemy);
+        }
+
+        // Initialize player rocket
+        playerRocket = this.physics.add.sprite(-10, -10, "playerRocket");
+        playerRocket.setScale(1.5);
+        playerRocket.setGravityY(0);
+        playerRocket.disableBody(true, true);
+
+        this.physics.add.overlap(
+          playerRocket,
+          greenGroup,
+          killAlien,
+          null,
+          this
+        );
+
+        this.physics.add.overlap(
+          playerRocket,
+          yellowGroup1,
+          killAlien,
+          null,
+          this
+        );
+
+        this.physics.add.overlap(
+          playerRocket,
+          yellowGroup2,
+          killAlien,
+          null,
+          this
+        );
+
+        this.physics.add.overlap(
+          playerRocket,
+          redGroup1,
+          killAlien,
+          null,
+          this
+        );
+
+        this.physics.add.overlap(
+          playerRocket,
+          redGroup2,
+          killAlien,
+          null,
+          this
+        );
+
+        cursors = this.input.keyboard.addKeys({
+          left: "A",
+          right: "D",
+          fire: "space",
+        });
+
+        this.time.addEvent({
+          delay: 500,
+          callback: moveAliens,
+          callbackScope: this,
+          loop: true,
+        });
+      }
+
+      function moveAliens() {
+        if (alienOffsetX === 25) {
+          moveLeft = false;
+          greenGroup.children.iterate(function (child) {
+            child.y += 5;
+            child.x -= 5;
+          });
+          yellowGroup1.children.iterate(function (child) {
+            child.y += 5;
+            child.x -= 5;
+          });
+          yellowGroup2.children.iterate(function (child) {
+            child.y += 5;
+            child.x -= 5;
+          });
+          redGroup1.children.iterate(function (child) {
+            child.y += 5;
+            child.x -= 5;
+          });
+          redGroup2.children.iterate(function (child) {
+            child.y += 5;
+            child.x -= 5;
+          });
+        }
+        if (alienOffsetX === 120) {
+          moveLeft = true;
+          greenGroup.children.iterate(function (child) {
+            child.y += 5;
+            child.x += 5;
+          });
+          yellowGroup1.children.iterate(function (child) {
+            child.y += 5;
+            child.x += 5;
+          });
+          yellowGroup2.children.iterate(function (child) {
+            child.y += 5;
+            child.x += 5;
+          });
+          redGroup1.children.iterate(function (child) {
+            child.y += 5;
+            child.x += 5;
+          });
+          redGroup2.children.iterate(function (child) {
+            child.y += 5;
+            child.x += 5;
+          });
+        }
+        if (moveLeft) {
+          alienOffsetX -= 5;
+          greenGroup.children.iterate(function (child) {
+            child.x -= 5;
+          });
+          yellowGroup1.children.iterate(function (child) {
+            child.x -= 5;
+          });
+          yellowGroup2.children.iterate(function (child) {
+            child.x -= 5;
+          });
+          redGroup1.children.iterate(function (child) {
+            child.x -= 5;
+          });
+          redGroup2.children.iterate(function (child) {
+            child.x -= 5;
+          });
+        } else {
+          alienOffsetX += 5;
+          greenGroup.children.iterate(function (child) {
+            child.x += 5;
+          });
+          yellowGroup1.children.iterate(function (child) {
+            child.x += 5;
+          });
+          yellowGroup2.children.iterate(function (child) {
+            child.x += 5;
+          });
+          redGroup1.children.iterate(function (child) {
+            child.x += 5;
+          });
+          redGroup2.children.iterate(function (child) {
+            child.x += 5;
+          });
+        }
+      }
+
+      function killAlien(playerRocket, enemy) {
+        redGroup1.children.iterate((child) => {
+          if (child === enemy) {
+            score += redScoreValue;
+          }
+        });
+        redGroup2.children.iterate((child) => {
+          if (child === enemy) {
+            score += redScoreValue;
+          }
+        });
+        yellowGroup1.children.iterate((child) => {
+          if (child === enemy) {
+            score += yellowScoreValue;
+          }
+        });
+        yellowGroup2.children.iterate((child) => {
+          if (child === enemy) {
+            score += yellowScoreValue;
+          }
+        });
+        greenGroup.children.iterate((child) => {
+          if (child === enemy) {
+            score += greenScoreValue;
+          }
+        });
+        enemy.disableBody(false, true);
+        playerRocket.disableBody(true, true);
+        rocketDisabled = true;
+        aliensKilled++;
+        updateScore();
+      }
+
+      function updateScore() {
+        scoreText.setText("Score: " + score);
+      }
+
+      function update() {
+        scoreText.setText("Score: " + score);
+        if (cursors.left.isDown) {
+          spaceship.setVelocityX(-160);
+        } else if (cursors.right.isDown) {
+          spaceship.setVelocityX(160);
+        } else {
+          spaceship.setVelocityX(0);
+        }
+
+        if (cursors.fire.isDown && !cursors.fire.isUp && rocketDisabled) {
+          playerRocket.enableBody(
+            true,
+            spaceship.x,
+            spaceship.y - 15,
+            true,
+            true
+          );
+          playerRocket.setVelocityY(-300);
+          rocketDisabled = false;
+        }
+
+        if (!rocketDisabled) {
+          playerRocket.setVelocityY(-300);
+        }
+
+        if (!rocketDisabled && playerRocket.y < 0) {
+          playerRocket.disableBody(true, true);
+          rocketDisabled = true;
+        }
+        if (aliensKilled === 55) {
+          aliensKilled = 0;
+          resetGame();
+        }
+      }
+
+      function resetGame() {
+        score = 0;
+        spaceship.setX(300);
+        resetAliens();
+      }
+
+      function resetAliens() {
+        let i = 0;
+        //Green Aliens
+        const xOffset = 70;
+        let yOffset = 100;
+        greenGroup.children.iterate((child) => {
+          let xPos = xOffset + 46 * i;
+          // child.setX(xPos);
+          // child.setY(yOffset);
+          i++;
+          child.enableBody(true, xPos, yOffset, true, true);
+        });
+
+        //Yellow Aliens
+        i = 0;
+        yOffset += 50;
+        yellowGroup1.children.iterate((child) => {
+          let xPos = xOffset + 46 * i;
+          // child.setX(xPos);
+          // child.setY(yOffset);
+          i++;
+          child.enableBody(true, xPos, yOffset, true, true);
+        });
+        i = 0;
+        yOffset += 50;
+        yellowGroup2.children.iterate((child) => {
+          let xPos = xOffset + 46 * i;
+          // child.setX(xPos);
+          // child.setY(yOffset);
+          i++;
+          child.enableBody(true, xPos, yOffset, true, true);
+        });
+
+        //Red Aliens
+        i = 0;
+        yOffset += 50;
+        redGroup1.children.iterate((child) => {
+          let xPos = xOffset + 46 * i;
+          // child.setX(xPos);
+          // child.setY(yOffset);
+          i++;
+          child.enableBody(true, xPos, yOffset, true, true);
+        });
+        i = 0;
+        yOffset += 50;
+        redGroup2.children.iterate((child) => {
+          let xPos = xOffset + 46 * i;
+          // child.setX(xPos);
+          // child.setY(yOffset);
+          i++;
+          child.enableBody(true, xPos, yOffset, true, true);
+        });
+
+        alienOffsetX = 70;
+      }
+    </script>
+  </body>
+</html>
