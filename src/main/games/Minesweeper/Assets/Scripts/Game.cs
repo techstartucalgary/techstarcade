@@ -109,12 +109,15 @@ public class Game : MonoBehaviour
     }
 
     private void Update() {
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3Int cellPosition = board.tilemap.WorldToCell(worldPosition);
+
+        HoverTint(cellPosition.x, cellPosition.y);
+
         if (Input.GetMouseButtonDown(1)) {
-            Flag();
+            Flag(cellPosition.x, cellPosition.y);
         }
         else if (Input.GetMouseButtonDown(0)) {
-            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3Int cellPosition = board.tilemap.WorldToCell(worldPosition);
             if (firstClick) {
                 firstClick = false;
                 GenerateMines(cellPosition.x, cellPosition.y);
@@ -122,19 +125,20 @@ public class Game : MonoBehaviour
             }
             Reveal(cellPosition.x, cellPosition.y);
         }
+        else if (Input.GetKey(KeyCode.R)) {
+            NewGame();
+        }
     }
 
-    private void Flag() {
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3Int cellPosition = board.tilemap.WorldToCell(worldPosition);
-        Cell cell = GetCell(cellPosition.x, cellPosition.y);
+    private void Flag(int xPos, int yPos) {
+        Cell cell = GetCell(xPos, yPos);
 
         if (cell.type == Cell.Type.Invalid || cell.revealed) {
             return;
         }
 
         cell.flagged = !cell.flagged;
-        state[cellPosition.x, cellPosition.y] = cell;
+        state[xPos, yPos] = cell;
         board.Draw(state);
     }
 
@@ -148,8 +152,6 @@ public class Game : MonoBehaviour
             cell.exploded = true;
             RevealAllCells();
         }
-
-        //if (firstClick) 
 
         cell.revealed = true;
 
@@ -183,5 +185,20 @@ public class Game : MonoBehaviour
 
     private bool IsValid(int x, int y) {
         return x >= 0 && x < width && y >= 0 && y < height;
+    }
+
+    private void HoverTint(int xPos, int yPos) {
+        Cell cell = GetCell(xPos, yPos);
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                state[x,y].hovered = false;
+            }
+        }
+
+        if (!cell.revealed && cell.type != Cell.Type.Invalid) {
+            state[xPos, yPos].hovered = true;
+            board.Draw(state);
+        }
     }
 }

@@ -399,6 +399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileUnknown: {fileID: 11400000, guid: 8c42d032891f7d34587a472fca6b265b, type: 2}
+  tileHovered: {fileID: 11400000, guid: eaf55d3a9bf129e43954618178f4a26c, type: 2}
   tileEmpty: {fileID: 11400000, guid: 3607d89d14f4502488547d1a6b9f285e, type: 2}
   tileMine: {fileID: 11400000, guid: 88b5eaf5f3d2e524c952bd6d3582b0d9, type: 2}
   tileExploded: {fileID: 11400000, guid: e303d7e2777f0f54f963ae8321e2528c, type: 2}

@@ -8,6 +8,7 @@ public class Board : MonoBehaviour
     public Tilemap tilemap {get; private set; }
 
     public Tile tileUnknown;
+    public Tile tileHovered;
     public Tile tileEmpty;
     public Tile tileMine;
     public Tile tileExploded;
@@ -44,6 +45,9 @@ public class Board : MonoBehaviour
         }
         else if (cell.flagged) {
             return tileFlag;
+        }
+        else if (cell.hovered){
+            return tileHovered;
         }
         else {
             return tileUnknown;
