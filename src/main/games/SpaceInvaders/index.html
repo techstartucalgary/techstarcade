@@ -67,6 +67,7 @@
       var moveLeft = true;
 
       // Scoring Variables
+      var aliensKilled = 54;
       var score = 0;
       var scoreText;
       const redScoreValue = 10;
@@ -304,6 +305,7 @@
         enemy.disableBody(false, true);
         playerRocket.disableBody(true, true);
         rocketDisabled = true;
+        aliensKilled++;
         updateScore();
       }
 
@@ -341,6 +343,72 @@
           playerRocket.disableBody(true, true);
           rocketDisabled = true;
         }
+        if (aliensKilled === 55) {
+          aliensKilled = 0;
+          resetGame();
+        }
+      }
+
+      function resetGame() {
+        score = 0;
+        spaceship.setX(300);
+        resetAliens();
+      }
+
+      function resetAliens() {
+        let i = 0;
+        //Green Aliens
+        const xOffset = 70;
+        let yOffset = 100;
+        greenGroup.children.iterate((child) => {
+          let xPos = xOffset + 46 * i;
+          // child.setX(xPos);
+          // child.setY(yOffset);
+          i++;
+          child.enableBody(true, xPos, yOffset, true, true);
+        });
+
+        //Yellow Aliens
+        i = 0;
+        yOffset += 50;
+        yellowGroup1.children.iterate((child) => {
+          let xPos = xOffset + 46 * i;
+          // child.setX(xPos);
+          // child.setY(yOffset);
+          i++;
+          child.enableBody(true, xPos, yOffset, true, true);
+        });
+        i = 0;
+        yOffset += 50;
+        yellowGroup2.children.iterate((child) => {
+          let xPos = xOffset + 46 * i;
+          // child.setX(xPos);
+          // child.setY(yOffset);
+          i++;
+          child.enableBody(true, xPos, yOffset, true, true);
+        });
+
+        //Red Aliens
+        i = 0;
+        yOffset += 50;
+        redGroup1.children.iterate((child) => {
+          let xPos = xOffset + 46 * i;
+          // child.setX(xPos);
+          // child.setY(yOffset);
+          i++;
+          child.enableBody(true, xPos, yOffset, true, true);
+        });
+        i = 0;
+        yOffset += 50;
+        redGroup2.children.iterate((child) => {
+          let xPos = xOffset + 46 * i;
+          // child.setX(xPos);
+          // child.setY(yOffset);
+          i++;
+          child.enableBody(true, xPos, yOffset, true, true);
+        });
+
+        alienOffsetX = 70;
       }
     </script>
   </body>
