@@ -123,7 +123,9 @@ public class Game : MonoBehaviour
                 GenerateMines(cellPosition.x, cellPosition.y);
                 GenerateNumbers();
             }
-            Reveal(cellPosition.x, cellPosition.y);
+            Cell cell = GetCell(cellPosition.x, cellPosition.y);
+            if (cell.type == Cell.Type.Number && cell.revealed) NumberClick(cellPosition.x, cellPosition.y);
+            else Reveal(cellPosition.x, cellPosition.y);
         }
         else if (Input.GetKey(KeyCode.R)) {
             NewGame();
@@ -152,6 +154,7 @@ public class Game : MonoBehaviour
             cell.exploded = true;
             RevealAllCells();
         }
+        
 
         cell.revealed = true;
 
@@ -167,12 +170,45 @@ public class Game : MonoBehaviour
 
                     int x = xPos + adjacentX;
                     int y = yPos + adjacentY;
-
+                    
                     Reveal(x, y);
                 }
             }
         }
     }
+
+    private void NumberClick(int xPos, int yPos) {
+        Cell cell = GetCell(xPos, yPos);
+        int flagCount = 0;
+        for (int adjacentX = -1; adjacentX <= 1; adjacentX++) {
+            for (int adjacentY = -1; adjacentY <= 1; adjacentY++) {
+                if (adjacentX == 0 && adjacentY == 0) {
+                    continue;
+                }
+
+                int x = xPos + adjacentX;
+                int y = yPos + adjacentY;
+                    
+                if (GetCell(x, y).flagged) flagCount++;
+            }
+        }
+
+        if (cell.number == flagCount) {
+            for (int adjacentX = -1; adjacentX <= 1; adjacentX++) {
+                for (int adjacentY = -1; adjacentY <= 1; adjacentY++) {
+                    if (adjacentX == 0 && adjacentY == 0) {
+                        continue;
+                    }
+
+                    int x = xPos + adjacentX;
+                    int y = yPos + adjacentY;
+                        
+                    if (!GetCell(x, y).flagged) Reveal(x, y);
+                }
+            }
+        }
+    }
+
 
     private Cell GetCell(int x, int y) {
         if (IsValid(x, y)) {
@@ -195,6 +231,9 @@ public class Game : MonoBehaviour
                 state[x,y].hovered = false;
             }
         }
+
+        board.Draw(state);
+
 
         if (!cell.revealed && cell.type != Cell.Type.Invalid) {
             state[xPos, yPos].hovered = true;
