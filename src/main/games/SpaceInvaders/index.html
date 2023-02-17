@@ -56,18 +56,28 @@
       var rocketDisabled = true;
 
       // Enemy Variables
+      var numEnemies = 11;
       var greenGroup;
+      var greenChildCount = numEnemies;
       var yellowGroup1;
+      var yellow1ChildCount = numEnemies;
       var yellowGroup2;
+      var yellow2ChildCount = numEnemies;
       var redGroup1;
+      var red1ChildCount = numEnemies;
       var redGroup2;
+      var red2ChildCount = numEnemies;
+      var enemyRocket1;
+      var enemyRocket1Fired = false;
+      var enemyRocket2;
+      var enemyRocket2Fired = false;
 
       // Alien Movement Variables
       var alienOffsetX = 70;
       var moveLeft = true;
 
       // Scoring Variables
-      var aliensKilled = 54;
+      var aliensKilled = 0;
       var score = 0;
       var scoreText;
       const redScoreValue = 10;
@@ -138,6 +148,17 @@
         playerRocket.setGravityY(0);
         playerRocket.disableBody(true, true);
 
+        // Initialize enemy rocket
+        enemyRocket1 = this.physics.add.sprite(-10, -10, "playerRocket");
+        enemyRocket1.setScale(1.5);
+        enemyRocket1.setGravityY(0);
+        enemyRocket1.disableBody(true, true);
+
+        enemyRocket2 = this.physics.add.sprite(-10, -10, "playerRocket");
+        enemyRocket2.setScale(1.5);
+        enemyRocket2.setGravityY(0);
+        enemyRocket2.disableBody(true, true);
+
         this.physics.add.overlap(
           playerRocket,
           greenGroup,
@@ -178,6 +199,11 @@
           this
         );
 
+        // Spaceship & Enemy Rocket Overlap
+        this.physics.add.overlap(spaceship, enemyRocket1, killShip, null, this);
+
+        this.physics.add.overlap(spaceship, enemyRocket2, killShip, null, this);
+
         cursors = this.input.keyboard.addKeys({
           left: "A",
           right: "D",
@@ -190,6 +216,14 @@
           callbackScope: this,
           loop: true,
         });
+
+        this.time.addEvent({
+          delay: Phaser.Math.Between(500, 1000),
+          callback: fireAlien,
+          callbackScope: this,
+          loop: true,
+        });
+        //fireAlien();
       }
 
       function moveAliens() {
@@ -276,30 +310,238 @@
         }
       }
 
+      function fireAlien() {
+        let row = Phaser.Math.Between(1, 5);
+        let column = 0;
+        let fireFlag = true;
+        let children;
+        let childCount;
+        let child;
+        switch (row) {
+          case 1:
+            children = greenGroup.getChildren();
+            childCount = greenChildCount;
+            if (childCount === 0) {
+              return;
+            }
+            column = Phaser.Math.Between(0, childCount - 1);
+            child = children[column];
+            while (fireFlag) {
+              if (child.body.enable) {
+                if (!enemyRocket1Fired) {
+                  enemyRocket1.enableBody(
+                    true,
+                    child.x,
+                    child.y + 5,
+                    true,
+                    true
+                  );
+                  enemyRocket1Fired = true;
+                  enemyRocket1.setVelocityY(300);
+                } else if (!enemyRocket2Fired) {
+                  enemyRocket2.enableBody(
+                    true,
+                    child.x,
+                    child.y + 5,
+                    true,
+                    true
+                  );
+                  enemyRocket2Fired = true;
+                  enemyRocket2.setVelocityY(300);
+                }
+                fireFlag = false;
+              } else {
+                column++;
+                column %= 10;
+                child = children[column];
+              }
+            }
+          case 2:
+            children = yellowGroup2.getChildren();
+            childCount = yellow2ChildCount;
+            if (childCount === 0) {
+              return;
+            }
+            column = Phaser.Math.Between(0, childCount - 1);
+            child = children[column];
+            while (fireFlag) {
+              if (child.body.enable) {
+                if (!enemyRocket1Fired) {
+                  enemyRocket1.enableBody(
+                    true,
+                    child.x,
+                    child.y + 5,
+                    true,
+                    true
+                  );
+                  enemyRocket1Fired = true;
+                  enemyRocket1.setVelocityY(300);
+                } else if (!enemyRocket2Fired) {
+                  enemyRocket2.enableBody(
+                    true,
+                    child.x,
+                    child.y + 5,
+                    true,
+                    true
+                  );
+                  enemyRocket2Fired = true;
+                  enemyRocket2.setVelocityY(300);
+                }
+                fireFlag = false;
+              } else {
+                column++;
+                column %= 10;
+                child = children[column];
+              }
+            }
+          case 3:
+            children = yellowGroup1.getChildren();
+            childCount = yellow1ChildCount;
+            if (childCount === 0) {
+              return;
+            }
+            column = Phaser.Math.Between(0, childCount - 1);
+            child = children[column];
+            while (fireFlag) {
+              if (child.body.enable) {
+                if (!enemyRocket1Fired) {
+                  enemyRocket1.enableBody(
+                    true,
+                    child.x,
+                    child.y + 5,
+                    true,
+                    true
+                  );
+                  enemyRocket1Fired = true;
+                  enemyRocket1.setVelocityY(300);
+                } else if (!enemyRocket2Fired) {
+                  enemyRocket2.enableBody(
+                    true,
+                    child.x,
+                    child.y + 5,
+                    true,
+                    true
+                  );
+                  enemyRocket2Fired = true;
+                  enemyRocket2.setVelocityY(300);
+                }
+                fireFlag = false;
+              } else {
+                column++;
+                column %= 10;
+                child = children[column];
+              }
+            }
+          case 4:
+            children = redGroup2.getChildren();
+            childCount = red2ChildCount;
+            if (childCount === 0) {
+              return;
+            }
+            column = Phaser.Math.Between(0, childCount - 1);
+            child = children[column];
+            while (fireFlag) {
+              if (child.body.enable) {
+                if (!enemyRocket1Fired) {
+                  enemyRocket1.enableBody(
+                    true,
+                    child.x,
+                    child.y + 5,
+                    true,
+                    true
+                  );
+                  enemyRocket1Fired = true;
+                  enemyRocket1.setVelocityY(300);
+                } else if (!enemyRocket2Fired) {
+                  enemyRocket2.enableBody(
+                    true,
+                    child.x,
+                    child.y + 5,
+                    true,
+                    true
+                  );
+                  enemyRocket2Fired = true;
+                  enemyRocket2.setVelocityY(300);
+                }
+                fireFlag = false;
+              } else {
+                column++;
+                column %= 10;
+                child = children[column];
+              }
+            }
+          case 5:
+            children = redGroup1.getChildren();
+            childCount = red1ChildCount;
+            if (childCount === 0) {
+              return;
+            }
+            column = Phaser.Math.Between(0, childCount - 1);
+            child = children[column];
+            while (fireFlag) {
+              if (child.body.enable) {
+                if (!enemyRocket1Fired) {
+                  enemyRocket1.enableBody(
+                    true,
+                    child.x,
+                    child.y + 5,
+                    true,
+                    true
+                  );
+                  enemyRocket1Fired = true;
+                  enemyRocket1.setVelocityY(300);
+                } else if (!enemyRocket2Fired) {
+                  enemyRocket2.enableBody(
+                    true,
+                    child.x,
+                    child.y + 5,
+                    true,
+                    true
+                  );
+                  enemyRocket2Fired = true;
+                  enemyRocket2.setVelocityY(300);
+                }
+                fireFlag = false;
+              } else {
+                column++;
+                column %= 10;
+                child = children[column];
+              }
+            }
+          default:
+            console.log("Error");
+        }
+      }
+
       function killAlien(playerRocket, enemy) {
         redGroup1.children.iterate((child) => {
           if (child === enemy) {
             score += redScoreValue;
+            red1ChildCount--;
           }
         });
         redGroup2.children.iterate((child) => {
           if (child === enemy) {
             score += redScoreValue;
+            red2ChildCount--;
           }
         });
         yellowGroup1.children.iterate((child) => {
           if (child === enemy) {
             score += yellowScoreValue;
+            yellow1ChildCount--;
           }
         });
         yellowGroup2.children.iterate((child) => {
           if (child === enemy) {
             score += yellowScoreValue;
+            yellow2ChildCount--;
           }
         });
         greenGroup.children.iterate((child) => {
           if (child === enemy) {
             score += greenScoreValue;
+            greenChildCount--;
           }
         });
         enemy.disableBody(false, true);
@@ -308,6 +550,18 @@
         aliensKilled++;
         updateScore();
       }
+
+      function killShip(playerShip, enemyRocket) {
+        enemyRocket1.disableBody(true, true);
+        enemyRocket2.disableBody(true, true);
+        enemyRocket1Fired = false;
+        enemyRocket2Fired = false;
+        playerShip.setX(300);
+        playerShip.setY(580);
+        updateLives();
+      }
+
+      function updateLives() {}
 
       function updateScore() {
         scoreText.setText("Score: " + score);
@@ -342,6 +596,15 @@
         if (!rocketDisabled && playerRocket.y < 0) {
           playerRocket.disableBody(true, true);
           rocketDisabled = true;
+        }
+        if (enemyRocket1.y > 600) {
+          enemyRocket1.disableBody(true, true);
+          enemyRocket1Fired = false;
+        }
+
+        if (enemyRocket2.y > 600) {
+          enemyRocket2.disableBody(true, true);
+          enemyRocket2Fired = false;
         }
         if (aliensKilled === 55) {
           aliensKilled = 0;
