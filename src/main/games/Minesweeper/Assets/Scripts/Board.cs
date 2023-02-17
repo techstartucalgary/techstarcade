@@ -53,7 +53,8 @@ public class Board : MonoBehaviour
     private Tile GetRevealedTile(Cell cell) {
         switch (cell.type) {
             case Cell.Type.Empty: return tileEmpty;
-            case Cell.Type.Mine: return tileMine;
+            case Cell.Type.Mine: if (cell.exploded) return tileExploded;
+                                 else return tileMine;
             case Cell.Type.Number: return GetNumberTile(cell);
             default: return null; 
         }
