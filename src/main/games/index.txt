@@ -1,6 +1,6 @@
 Madeline: PM
 Ray:   RocketMan
-Dele:  Tic-tac-toe
+Dele:  Tic-tac-toe, Bunny Jump
 Aria:  Minesweeper
 Evan:  Asteroids
 Hana:  Journey back home

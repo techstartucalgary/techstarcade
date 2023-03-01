@@ -1,7 +1,5 @@
 import Phaser from './lib/phaser.js'
 import Intro from './scenes/Intro.js'
-import Game from './scenes/Game.js'
-import GameOver from './scenes/GameOver.js'
 import Level1 from './scenes/Level1.js';
 
 var config = {

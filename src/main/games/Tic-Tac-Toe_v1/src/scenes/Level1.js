@@ -272,7 +272,7 @@ export default class Level1 extends Phaser.Scene {
 				this.currentPlayer = !this.currentPlayer;
 				this.coin_sound.play();
 			} else {
-				alert("Sorry Buddy Can't do that!!!");
+				alert("Can't do that!");
 			}
 		});
 	}
