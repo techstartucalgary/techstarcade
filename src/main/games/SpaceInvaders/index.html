@@ -42,6 +42,9 @@
         // Player Rocket
         this.load.image("playerRocket", "assets/rocket.png");
 
+        // Player Hearts
+        this.load.image("playerHeart", "assets/playerHeart.png");
+
         // Enemies
         this.load.image("greenEnemy", "assets/green.png");
         this.load.image("redEnemy", "assets/red.png");
@@ -54,6 +57,8 @@
       var spaceship;
       var playerRocket;
       var rocketDisabled = true;
+      var playerHearts;
+      var heartCount = 3;
 
       // Enemy Variables
       var numEnemies = 11;
@@ -93,6 +98,19 @@
 
         spaceship = this.physics.add.sprite(300, 580, "spaceship");
         spaceship.setCollideWorldBounds(true);
+
+        // Player Hearts
+        playerHearts = this.physics.add.group({ immovable: true });
+        for (let i = 0; i < 3; i++) {
+          const xOffset = 510;
+          const yOffset = 20;
+          let xPos = xOffset + 30 * i;
+          let heart = playerHearts.create(xPos, yOffset, "playerHeart");
+          this.physics.add.existing(heart);
+        }
+        playerHearts.children.iterate((child) => {
+          child.setScale(0.07);
+        });
 
         // Green Invaders
         greenGroup = this.physics.add.group({ immovable: false });
@@ -218,12 +236,11 @@
         });
 
         this.time.addEvent({
-          delay: Phaser.Math.Between(500, 1000),
+          delay: 750,
           callback: fireAlien,
           callbackScope: this,
           loop: true,
         });
-        //fireAlien();
       }
 
       function moveAliens() {
@@ -356,6 +373,7 @@
                 child = children[column];
               }
             }
+            break;
           case 2:
             children = yellowGroup2.getChildren();
             childCount = yellow2ChildCount;
@@ -394,6 +412,7 @@
                 child = children[column];
               }
             }
+            break;
           case 3:
             children = yellowGroup1.getChildren();
             childCount = yellow1ChildCount;
@@ -432,6 +451,7 @@
                 child = children[column];
               }
             }
+            break;
           case 4:
             children = redGroup2.getChildren();
             childCount = red2ChildCount;
@@ -470,6 +490,7 @@
                 child = children[column];
               }
             }
+            break;
           case 5:
             children = redGroup1.getChildren();
             childCount = red1ChildCount;
@@ -508,8 +529,8 @@
                 child = children[column];
               }
             }
+            break;
           default:
-            console.log("Error");
         }
       }
 
@@ -561,7 +582,27 @@
         updateLives();
       }
 
-      function updateLives() {}
+      function updateLives() {
+        let heartChildren = playerHearts.getChildren();
+        console.log(heartCount);
+        switch (heartCount) {
+          case 3:
+            heartChildren[0].disableBody(true, true);
+            break;
+          case 2:
+            heartChildren[1].disableBody(true, true);
+            break;
+          case 1:
+            heartChildren[2].disableBody(true, true);
+            break;
+        }
+        heartCount--;
+        if (heartCount === 0) {
+          gameOver();
+        }
+      }
+
+      function gameOver() {}
 
       function updateScore() {
         scoreText.setText("Score: " + score);
@@ -625,8 +666,6 @@
         let yOffset = 100;
         greenGroup.children.iterate((child) => {
           let xPos = xOffset + 46 * i;
-          // child.setX(xPos);
-          // child.setY(yOffset);
           i++;
           child.enableBody(true, xPos, yOffset, true, true);
         });
@@ -636,8 +675,6 @@
         yOffset += 50;
         yellowGroup1.children.iterate((child) => {
           let xPos = xOffset + 46 * i;
-          // child.setX(xPos);
-          // child.setY(yOffset);
           i++;
           child.enableBody(true, xPos, yOffset, true, true);
         });
@@ -645,8 +682,6 @@
         yOffset += 50;
         yellowGroup2.children.iterate((child) => {
           let xPos = xOffset + 46 * i;
-          // child.setX(xPos);
-          // child.setY(yOffset);
           i++;
           child.enableBody(true, xPos, yOffset, true, true);
         });
@@ -656,8 +691,6 @@
         yOffset += 50;
         redGroup1.children.iterate((child) => {
           let xPos = xOffset + 46 * i;
-          // child.setX(xPos);
-          // child.setY(yOffset);
           i++;
           child.enableBody(true, xPos, yOffset, true, true);
         });
@@ -665,8 +698,6 @@
         yOffset += 50;
         redGroup2.children.iterate((child) => {
           let xPos = xOffset + 46 * i;
-          // child.setX(xPos);
-          // child.setY(yOffset);
           i++;
           child.enableBody(true, xPos, yOffset, true, true);
         });
