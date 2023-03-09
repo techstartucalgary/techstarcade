@@ -240,4 +240,15 @@ public class Game : MonoBehaviour
             board.Draw(state);
         }
     }
+
+    private bool DetectWin() {
+        int unrevealedCount = 0;
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (!state[x, y].revealed) unrevealedCount++;
+            }
+        }
+        if (unrevealedCount == mineCount) return true;
+        return false;
+    }
 }
