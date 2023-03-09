@@ -4,13 +4,27 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    static public int width = 16;
-    static public int height = 16;
-    static public int mineCount = width * height / 5;
+    private int width;
+    private int height;
 
     private Board board;
     private Cell[,] state;
     private bool firstClick;
+
+    public void easyMode() {
+        width = 10;
+        height = 10;
+    }
+
+    public void mediumMode() {
+        width = 12;
+        height = 12;
+    }
+
+    public void hardMode() {
+        width = 16;
+        height = 16;
+    }
 
     private void Awake() {
         board = GetComponentInChildren<Board>();
@@ -20,7 +34,7 @@ public class Game : MonoBehaviour
         NewGame();
     }
 
-    private void NewGame() {
+    public void NewGame() {
         firstClick = true;
         state = new Cell[width, height];
         GenerateCells();
@@ -40,6 +54,7 @@ public class Game : MonoBehaviour
     }
 
     private void GenerateMines(int xClick, int yClick) {
+        int mineCount = width * height / 5;
         for (int i = 0; i < mineCount; i++) {
             int x = Random.Range(0, width);
             int y = Random.Range(0, height);
@@ -243,6 +258,7 @@ public class Game : MonoBehaviour
 
     private bool DetectWin() {
         int unrevealedCount = 0;
+        int mineCount = width * height / 5;
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 if (!state[x, y].revealed) unrevealedCount++;

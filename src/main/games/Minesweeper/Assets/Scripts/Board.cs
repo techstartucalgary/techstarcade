@@ -12,6 +12,7 @@ public class Board : MonoBehaviour
     public Tile tileEmpty;
     public Tile tileMine;
     public Tile tileExploded;
+    public Tile tileSaved;
     public Tile tileFlag;
     public Tile tileNum1;
     public Tile tileNum2;
@@ -28,6 +29,7 @@ public class Board : MonoBehaviour
     }
 
     public void Draw(Cell[,] state) {
+        tilemap.ClearAllTiles();
         int width = state.GetLength(0);
         int height = state.GetLength(1);
 
@@ -58,6 +60,7 @@ public class Board : MonoBehaviour
         switch (cell.type) {
             case Cell.Type.Empty: return tileEmpty;
             case Cell.Type.Mine: if (cell.exploded) return tileExploded;
+                                 else if (cell.flagged) return tileSaved;
                                  else return tileMine;
             case Cell.Type.Number: return GetNumberTile(cell);
             default: return null; 
