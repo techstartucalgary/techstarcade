@@ -4,11 +4,22 @@
     <meta charset="UTF-8" />
     <title>Space Invaders</title>
     <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
-    <style type="text/css">
+    <style media="screen" type="text/css">
       body {
         margin: 0;
       }
+      @font-face {
+        font-family: PressStart2P;
+        src: url("assets/PressStart2P-Regular.ttf");
+      }
     </style>
+    <span style="font-family: 'PressStart2P'"></span>
+    <!-- <link
+      rel="preload"
+      as="font"
+      href="assets/PressStart2P-Regular.ttf"
+      type="font/ttf"
+    /> -->
   </head>
   <body>
     <script type="text/javascript">
@@ -90,10 +101,25 @@
       const greenScoreValue = 30;
 
       function create() {
+        // function loadFont(name, url) {
+        //   var newFont = new FontFace(name, `url(${url})`);
+        //   newFont
+        //     .load()
+        //     .then(function (loaded) {
+        //       document.fonts.add(loaded);
+        //     })
+        //     .catch(function (error) {
+        //       return error;
+        //     });
+        // }
+
+        // loadFont("PressStartP2", "assets/PressStart2P-Regular.ttf");
+
         this.add.image(300, 300, "background");
 
         scoreText = this.add.text(5, 5, `Score: ${score}`, {
-          font: "20px Courier",
+          fontFamily: "PressStart2P",
+          fontSize: "2em",
         });
 
         spaceship = this.physics.add.sprite(300, 580, "spaceship");
