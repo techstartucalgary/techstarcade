@@ -6,24 +6,28 @@ public class Game : MonoBehaviour
 {
     private int width;
     private int height;
+    private int mineCount;
 
     private Board board;
     private Cell[,] state;
     private bool firstClick;
 
     public void easyMode() {
+        mineCount = 20;
         width = 10;
         height = 10;
     }
 
     public void mediumMode() {
-        width = 12;
-        height = 12;
+        mineCount = 30;
+        width = 16;
+        height = 16;
     }
 
     public void hardMode() {
-        width = 16;
-        height = 16;
+        mineCount = 50;
+        width = 20;
+        height = 20;
     }
 
     private void Awake() {
@@ -54,7 +58,6 @@ public class Game : MonoBehaviour
     }
 
     private void GenerateMines(int xClick, int yClick) {
-        int mineCount = width * height / 5;
         for (int i = 0; i < mineCount; i++) {
             int x = Random.Range(0, width);
             int y = Random.Range(0, height);
@@ -141,9 +144,6 @@ public class Game : MonoBehaviour
             Cell cell = GetCell(cellPosition.x, cellPosition.y);
             if (cell.type == Cell.Type.Number && cell.revealed) NumberClick(cellPosition.x, cellPosition.y);
             else Reveal(cellPosition.x, cellPosition.y);
-        }
-        else if (Input.GetKey(KeyCode.R)) {
-            NewGame();
         }
     }
 
@@ -258,7 +258,6 @@ public class Game : MonoBehaviour
 
     private bool DetectWin() {
         int unrevealedCount = 0;
-        int mineCount = width * height / 5;
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 if (!state[x, y].revealed) unrevealedCount++;
