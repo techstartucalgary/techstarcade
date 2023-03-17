@@ -11,15 +11,17 @@ public class Game : MonoBehaviour
     private Board board;
     private Cell[,] state;
     private bool firstClick;
+    private bool lost;
+    private bool won;
 
     public void easyMode() {
-        mineCount = 20;
+        mineCount = 10;
         width = 10;
         height = 10;
     }
 
     public void mediumMode() {
-        mineCount = 30;
+        mineCount = 32;
         width = 16;
         height = 16;
     }
@@ -40,6 +42,8 @@ public class Game : MonoBehaviour
 
     public void NewGame() {
         firstClick = true;
+        won = false;
+        lost = false;
         state = new Cell[width, height];
         GenerateCells();
         Camera.main.transform.position = new Vector3(width / 4f, height / 4f, -10f);
@@ -99,10 +103,13 @@ public class Game : MonoBehaviour
         }
     }
 
-    private void RevealAllCells() {
+    private void RevealMineCells() {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                state[x,y].revealed = true;
+                if (state[x,y].type == Cell.Type.Mine) {
+                    if (won) state[x,y].flagged = true;
+                    state[x,y].revealed = true;
+                }
             }
         }
         board.Draw(state);
@@ -130,13 +137,16 @@ public class Game : MonoBehaviour
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3Int cellPosition = board.tilemap.WorldToCell(worldPosition);
 
-        HoverTint(cellPosition.x, cellPosition.y);
+        if (!won && !lost) {
+            DetectWin();
+            HoverTint(cellPosition.x, cellPosition.y);
+        }
 
         if (Input.GetMouseButtonDown(1)) {
             Flag(cellPosition.x, cellPosition.y);
         }
         else if (Input.GetMouseButtonDown(0)) {
-            if (firstClick) {
+            if (firstClick && IsValid(cellPosition.x, cellPosition.y)) {
                 firstClick = false;
                 GenerateMines(cellPosition.x, cellPosition.y);
                 GenerateNumbers();
@@ -167,7 +177,8 @@ public class Game : MonoBehaviour
         }
         else if (cell.type == Cell.Type.Mine) {
             cell.exploded = true;
-            RevealAllCells();
+            lost = true;
+            RevealMineCells();
         }
         
 
@@ -256,14 +267,17 @@ public class Game : MonoBehaviour
         }
     }
 
-    private bool DetectWin() {
+    private void DetectWin() {
         int unrevealedCount = 0;
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 if (!state[x, y].revealed) unrevealedCount++;
             }
         }
-        if (unrevealedCount == mineCount) return true;
-        return false;
+        if (unrevealedCount == mineCount) {
+            won = true;
+            RevealMineCells();
+        }
+        else won = false;
     }
 }
