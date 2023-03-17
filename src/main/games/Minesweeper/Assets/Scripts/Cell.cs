@@ -15,6 +15,7 @@ public struct Cell
     public Type type;
     public int number;
     public bool revealed;
+    public bool hovered;
     public bool flagged;
     public bool exploded;
 }
