@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
 //     public TextMeshProUGUI scoreText;
 //     public TextMeshProUGUI hiscoreText;
+
     public TextMeshProUGUI gameOverText;
     public Button retryButton;
 
