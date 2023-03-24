@@ -18,18 +18,28 @@ public class Game : MonoBehaviour
         mineCount = 10;
         width = 10;
         height = 10;
+        transform.localScale = new Vector3(6, 6, 6);
     }
 
     public void mediumMode() {
         mineCount = 32;
         width = 16;
         height = 16;
+        transform.localScale = new Vector3(3.75f, 3.75f, 3.75f);
     }
 
     public void hardMode() {
         mineCount = 50;
         width = 20;
         height = 20;
+        transform.localScale = new Vector3(3, 3, 3);
+    }
+
+    public void expertMode() {
+        mineCount = 100;
+        width = 26;
+        height = 26;
+        transform.localScale = new Vector3(2.32f, 2.32f, 2.32f);
     }
 
     private void Awake() {
@@ -46,7 +56,6 @@ public class Game : MonoBehaviour
         lost = false;
         state = new Cell[width, height];
         GenerateCells();
-        Camera.main.transform.position = new Vector3(width / 4f, height / 4f, -10f);
         board.Draw(state);
     }
 
@@ -134,26 +143,28 @@ public class Game : MonoBehaviour
     }
 
     private void Update() {
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3Int cellPosition = board.tilemap.WorldToCell(worldPosition);
-
         if (!won && !lost) {
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3Int cellPosition = board.tilemap.WorldToCell(worldPosition);
+
+        
             DetectWin();
             HoverTint(cellPosition.x, cellPosition.y);
-        }
+        
 
-        if (Input.GetMouseButtonDown(1)) {
-            Flag(cellPosition.x, cellPosition.y);
-        }
-        else if (Input.GetMouseButtonDown(0)) {
-            if (firstClick && IsValid(cellPosition.x, cellPosition.y)) {
-                firstClick = false;
-                GenerateMines(cellPosition.x, cellPosition.y);
-                GenerateNumbers();
+            if (Input.GetMouseButtonDown(1)) {
+                Flag(cellPosition.x, cellPosition.y);
             }
-            Cell cell = GetCell(cellPosition.x, cellPosition.y);
-            if (cell.type == Cell.Type.Number && cell.revealed) NumberClick(cellPosition.x, cellPosition.y);
-            else Reveal(cellPosition.x, cellPosition.y);
+            else if (Input.GetMouseButtonDown(0)) {
+                if (firstClick && IsValid(cellPosition.x, cellPosition.y)) {
+                    firstClick = false;
+                    GenerateMines(cellPosition.x, cellPosition.y);
+                    GenerateNumbers();
+                }
+                Cell cell = GetCell(cellPosition.x, cellPosition.y);
+                if (cell.type == Cell.Type.Number && cell.revealed) NumberClick(cellPosition.x, cellPosition.y);
+                else Reveal(cellPosition.x, cellPosition.y);
+            }    
         }
     }
 
