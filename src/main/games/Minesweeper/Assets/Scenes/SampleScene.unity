@@ -1036,7 +1036,7 @@ VideoPlayer:
   m_TimeReference: 0
   m_TargetMaterialRenderer: {fileID: 0}
   m_TargetMaterialProperty: <noninit>
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_AspectRatio: 5
   m_DataSource: 0
   m_PlaybackSpeed: 1.5
@@ -1646,8 +1646,8 @@ RectTransform:
   m_GameObject: {fileID: 1459350637}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 808972167}
   m_RootOrder: 2
