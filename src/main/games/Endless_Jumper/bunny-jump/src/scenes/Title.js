@@ -31,7 +31,8 @@ export default class Start extends Phaser.Scene {
 		});
 		this.intro_music.play();
 		this.background = this.add.image(0, 0, 'background').setOrigin(0, 0);
-		this.cloud = this.add.image(0, 0, 'cloud').setOrigin(30, 30);
+		this.cloud = this.add.image(this.game.config.width / 2, this.game.config.height *2/ 3, 'cloud').setOrigin(.5
+		).setScale(1.8);
 
 		this.startButton = this.add
 			.image(this.game.config.width / 2, 270, 'startButton')
