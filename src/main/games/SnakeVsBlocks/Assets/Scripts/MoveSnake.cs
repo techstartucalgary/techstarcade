@@ -5,21 +5,33 @@ using UnityEngine;
 public class MoveSnake : MonoBehaviour
 {
     Rigidbody2D rb;
-
+    Vector3[] prevPosition = new Vector3[3];
     float walkSpeed;
     float inputHorizontal;
     
+    public Vector3[] PrevPosition {
+        get {
+            return prevPosition;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
-
         walkSpeed = 5.0f;
+
+        prevPosition[0] = new Vector3(0.0f, 0.0f, 0.0f);
+        prevPosition[1] = new Vector3(0.0f, 0.0f, 0.0f);
+        prevPosition[2] = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+        prevPosition[0] = prevPosition[1];
+        prevPosition[1] = prevPosition[2];
+        prevPosition[2] = transform.position;
+
         inputHorizontal = Input.GetAxisRaw("Horizontal");   
         
         //rb.setForce(new Vector2(0f, 0f));
