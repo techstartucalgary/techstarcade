@@ -11,6 +11,5 @@ public class Background : MonoBehaviour
         var videoPlayer = camera.AddComponent<UnityEngine.Video.VideoPlayer>();
         videoPlayer.url = System.IO.Path.Combine (Application.streamingAssetsPath,"Background.mp4");
         videoPlayer.isLooping = true;
-        videoPlayer.playbackSpeed = 1.5f; 
     }
 }
