@@ -102,9 +102,10 @@ export default class Game extends Phaser.Scene
 			const platform = child
 
 			const scrollY = this.cameras.main.scrollY
+			const topPlatform = this.findTopMostPlatform()
 			if (platform.y >= scrollY + 700)
 			{
-				platform.y = scrollY - Phaser.Math.Between(50, 100)
+				platform.y = topPlatform.y - Phaser.Math.Between(100, 210)
 				platform.body.updateFromGameObject()
 				this.addCarrotAbove(platform)
 			}
@@ -223,5 +224,25 @@ export default class Game extends Phaser.Scene
 		}
 
 		return bottomPlatform
+	}
+	findTopMostPlatform()
+	{
+		const platforms = this.platforms.getChildren()
+		let topPlatform = platforms[0]
+
+		for (let i = 1; i < platforms.length; ++i)
+		{
+			const platform = platforms[i]
+
+			// discard any platforms that are above current
+			if (platform.y > topPlatform.y)
+			{
+				continue
+			}
+
+			topPlatform = platform
+		}
+
+		return topPlatform
 	}
 }
