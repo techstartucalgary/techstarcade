@@ -16,6 +16,7 @@ public class Spawn : MonoBehaviour
     void Start()
     {
         snakeHead = GameObject.Find("SnakeHead");
+
         SpawnInitialItems();
     }
 
@@ -36,6 +37,7 @@ public class Spawn : MonoBehaviour
         if (timetillNextBlocks <= 0){
             SpawnItems();
             timetillNextBlocks = (int)UnityEngine.Random.Range(4.1f, 5.9f)*(blockScale)/2.0f; //*speed*amountOfBlockLinesWe want to skip
+
             //produce random amount of block in random spots
             //set time for next blocks    
         }
@@ -53,6 +55,7 @@ public class Spawn : MonoBehaviour
         Instantiate(food, foodVector, Quaternion.identity);
         timetillNextBlocks = (int)UnityEngine.Random.Range(5.1f, 6.9f)*(blockScale)/2.0f; //*speed*amountOfBlockLinesWe want to skip
         positions = new[] {-3.0f, -1.5f, 0.0f, 1.5f, 3.0f};
+
     }
 
     void SpawnItems()
@@ -70,5 +73,6 @@ public class Spawn : MonoBehaviour
             positions = Array.FindAll(positions, i => i != positions[p]).ToArray();
         }
         positions = new[] {-3.0f, -1.5f, 0.0f, 1.5f, 3.0f};
+
     }
 }
