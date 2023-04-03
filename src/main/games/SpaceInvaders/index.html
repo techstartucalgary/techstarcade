@@ -9,6 +9,24 @@
         margin: 0;
       }
     </style>
+    <style media="screen" type="text/css">
+      @font-face {
+        font-family: PressStart2P-Regular;
+        src: url("assets/PressStart2P-Regular.ttf");
+        font-weight: 400;
+        font-weight: normal;
+      }
+    </style>
+    <div
+      style="
+        font-family: PressStart2P-Regular;
+        position: absolute;
+        left: -1000px;
+        visibility: hidden;
+      "
+    >
+      .
+    </div>
   </head>
   <body>
     <script type="text/javascript">
@@ -49,6 +67,9 @@
         this.load.image("greenEnemy", "assets/green.png");
         this.load.image("redEnemy", "assets/red.png");
         this.load.image("yellowEnemy", "assets/yellow.png");
+
+        // Game Over
+        this.load.image("gameOver", "assets/GameOverNoBG.png");
       }
 
       // Player Variables
@@ -89,15 +110,28 @@
       const yellowScoreValue = 20;
       const greenScoreValue = 30;
 
+      // Game Over Variables
+      var gameOverAsset;
+      var gameOverFlag = false;
+
       function create() {
         this.add.image(300, 300, "background");
 
-        scoreText = this.add.text(5, 5, `Score: ${score}`, {
-          font: "20px Courier",
+        scoreText = this.add.text(5, 5, "Score: 0", {
+          fontFamily: "PressStart2P-Regular",
+          fontSize: "20px",
         });
 
         spaceship = this.physics.add.sprite(300, 580, "spaceship");
         spaceship.setCollideWorldBounds(true);
+
+        // Game Over Screen
+        gameOverAsset = this.physics.add.group({ immovable: true });
+        let gOver = gameOverAsset.create(300, 300, "gameOver");
+        this.physics.add.existing(gOver);
+        gameOverAsset.children.iterate((child) => {
+          child.disableBody(true, true);
+        });
 
         // Player Hearts
         playerHearts = this.physics.add.group({ immovable: true });
@@ -244,6 +278,9 @@
       }
 
       function moveAliens() {
+        if (gameOverFlag) {
+          return;
+        }
         if (alienOffsetX === 25) {
           moveLeft = false;
           greenGroup.children.iterate(function (child) {
@@ -328,6 +365,9 @@
       }
 
       function fireAlien() {
+        if (gameOverFlag) {
+          return;
+        }
         let row = Phaser.Math.Between(1, 5);
         let column = 0;
         let fireFlag = true;
@@ -602,14 +642,38 @@
         }
       }
 
-      function gameOver() {}
+      function gameOver() {
+        gameOverFlag = true;
+        enemyRocket1.disableBody(true, true);
+        enemyRocket2.disableBody(true, true);
+        playerRocket.disableBody(true, true);
+        spaceship.disableBody(true, true);
+        greenGroup.children.iterate((child) => {
+          child.disableBody(true, true);
+        });
+        yellowGroup1.children.iterate((child) => {
+          child.disableBody(true, true);
+        });
+        yellowGroup2.children.iterate((child) => {
+          child.disableBody(true, true);
+        });
+        redGroup1.children.iterate((child) => {
+          child.disableBody(true, true);
+        });
+        redGroup2.children.iterate((child) => {
+          child.disableBody(true, true);
+        });
+        gameOverAsset.children.iterate((child) => {
+          child.enableBody(true, 300, 300, true, true);
+        });
+      }
 
       function updateScore() {
         scoreText.setText("Score: " + score);
       }
 
       function update() {
-        scoreText.setText("Score: " + score);
+        //scoreText.setText("Score: " + score);
         if (cursors.left.isDown) {
           spaceship.setVelocityX(-160);
         } else if (cursors.right.isDown) {
