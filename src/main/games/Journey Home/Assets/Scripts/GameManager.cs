@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public float initialGameSpeed = 5f;
     public float gameSpeedIncrease = 0.1f;
     public float gameSpeed { get; private set; }
-
+    
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI hiscoreText;
 
