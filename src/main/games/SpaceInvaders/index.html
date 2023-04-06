@@ -113,11 +113,16 @@
       // Game Over Variables
       var gameOverAsset;
       var gameOverFlag = false;
+      var resetText;
 
       function create() {
         this.add.image(300, 300, "background");
 
         scoreText = this.add.text(5, 5, "Score: 0", {
+          fontFamily: "PressStart2P-Regular",
+          fontSize: "20px",
+        });
+        resetText = this.add.text(60, 550, "", {
           fontFamily: "PressStart2P-Regular",
           fontSize: "20px",
         });
@@ -260,6 +265,7 @@
           left: "A",
           right: "D",
           fire: "space",
+          restart: "R",
         });
 
         this.time.addEvent({
@@ -643,6 +649,7 @@
       }
 
       function gameOver() {
+        resetText.setText("Press 'R' to Reset Game!");
         gameOverFlag = true;
         enemyRocket1.disableBody(true, true);
         enemyRocket2.disableBody(true, true);
@@ -672,8 +679,15 @@
         scoreText.setText("Score: " + score);
       }
 
+      function checkRestart() {
+        if (cursors.restart.isDown) {
+          resetGame();
+          gameOverFlag = false;
+        }
+      }
+
       function update() {
-        //scoreText.setText("Score: " + score);
+        checkRestart();
         if (cursors.left.isDown) {
           spaceship.setVelocityX(-160);
         } else if (cursors.right.isDown) {
@@ -718,9 +732,20 @@
       }
 
       function resetGame() {
+        scoreText.setText("Score: 0");
+        resetText.setText("");
         score = 0;
         spaceship.setX(300);
         resetAliens();
+        spaceship.enableBody(true, 300, 580, true, true);
+        gameOverAsset.children.iterate((child) => {
+          child.disableBody(true, true);
+        });
+        heartCount = 3;
+        let heart = playerHearts.getChildren();
+        heart[0].enableBody(true, 510, 20, true, true);
+        heart[1].enableBody(true, 540, 20, true, true);
+        heart[2].enableBody(true, 570, 20, true, true);
       }
 
       function resetAliens() {
