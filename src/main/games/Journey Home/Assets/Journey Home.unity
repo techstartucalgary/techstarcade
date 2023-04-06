@@ -159,7 +159,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.22414559, g: 0.22414559, b: 0.6886792, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0.5471698, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -479,7 +479,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ad582a7b9d9a043b689bbf1f624b1b46, type: 3}
   - {fileID: 21300000, guid: a586fb44c894b49aaa6c0f2dfe781c89, type: 3}
   - {fileID: 21300000, guid: 4df464ae1976f44daae737f20b9bd4a5, type: 3}
-  animationspeed: 1.2
+  animationspeed: 2
 --- !u!1 &339737388
 GameObject:
   m_ObjectHideFlags: 0
@@ -1390,7 +1390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialGameSpeed: 7
-  gameSpeedIncrease: 0.5
+  gameSpeedIncrease: 0.15
   scoreText: {fileID: 526675127}
   hiscoreText: {fileID: 1175690848}
   gameOverText: {fileID: 879909918}
