@@ -5,9 +5,11 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - tileUnknown: {fileID: 11400000, guid: 8c42d032891f7d34587a472fca6b265b, type: 2}
+  - tileHovered: {fileID: 11400000, guid: eaf55d3a9bf129e43954618178f4a26c, type: 2}
   - tileEmpty: {fileID: 11400000, guid: 3607d89d14f4502488547d1a6b9f285e, type: 2}
   - tileMine: {fileID: 11400000, guid: 88b5eaf5f3d2e524c952bd6d3582b0d9, type: 2}
   - tileExploded: {fileID: 11400000, guid: e303d7e2777f0f54f963ae8321e2528c, type: 2}
+  - tileSaved: {fileID: 11400000, guid: f8fe117af3b3c444eb8e5f83a7232a79, type: 2}
   - tileFlag: {fileID: 11400000, guid: 165865b61a7d72245afb1c70ebb87703, type: 2}
   - tileNum1: {fileID: 11400000, guid: 72b98fc17197d334aaad82a332477421, type: 2}
   - tileNum2: {fileID: 11400000, guid: afa0296863c5b9f4eb427f2ddd459335, type: 2}
