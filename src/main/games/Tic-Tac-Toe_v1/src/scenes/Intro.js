@@ -38,7 +38,7 @@ preload(){
 		this.load.image('box_xblue', 'assets/sprites/box_xblue.png');
 		this.load.image('box_ored', 'assets/sprites/box_ored.png');
 		this.load.image('boardbg', 'assets/sprites/board/boardbg.png');
-
+		this.load.image('draw','assets/sprites/board/draw.png' );
 		this.load.image('playagain', 'assets/sprites/board/playagain.png');
 		this.load.image('wins', 'assets/sprites/board/wins.png');
 

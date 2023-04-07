@@ -118,6 +118,13 @@ export default class Level1 extends Phaser.Scene {
 			.setAlpha(0)
 			.setScale(0.5, 0.5)
 			.setDepth(6);
+
+		this.draw = this.add
+			.image(this.game.config.width / 2 - 0, 140, 'draw')
+			.setAlpha(0)
+			.setScale(0.5, 0.5)
+			.setDepth(6);
+
 		this.oIcon = this.add
 			.image(this.game.config.width / 2 - 10, 140, 'oIcon')
 			.setAlpha(0)
@@ -327,6 +334,24 @@ export default class Level1 extends Phaser.Scene {
 			yoyo: false
 		});
 	}
+
+	drawAnimation() {
+
+	
+		this.winning_sound.play();
+		
+		this.tweens.add({
+			targets: this.playagainBtn,
+			x: this.game.config.width / 2,
+			y: 275,
+			alpha: 1,
+			ease: 'Linear',
+			delay: 1000,
+			duration: 300,
+			repeat: 0,
+			yoyo: false
+		});
+	}
 	checkWin() {
 		let player = this.currentPlayer ? 'x' : 'o';
 
@@ -381,7 +406,8 @@ export default class Level1 extends Phaser.Scene {
 			this.gameBoard[8] != 'h' &&
 			this.gameBoard[9] != 'i'
 		) {
-			console.log('Draw');
+	
+			this.drawAnimation();
 		} else {
 			console.log('continue');
 		}
