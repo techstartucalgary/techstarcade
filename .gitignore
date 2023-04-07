@@ -1,7 +1,6 @@
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
-/[Bb]uild/
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
@@ -117,7 +116,6 @@ node_modules/
 
 # Build
 /npm-debug.log
-build/
 out/
 scripts/tsgen/test/bin/
 scripts/tsgen/test/output.txt

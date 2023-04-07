@@ -3,9 +3,10 @@ using UnityEngine;
 public class AnimatedSprites : MonoBehaviour
 {
     public Sprite[] sprites;
-
+    public float animationspeed = 1.5f;
     private SpriteRenderer spriteRenderer;
     private int frame;
+
 
     private void Awake()
     {
@@ -34,7 +35,7 @@ public class AnimatedSprites : MonoBehaviour
             spriteRenderer.sprite = sprites[frame];
         }
 
-        Invoke(nameof(Animate), 1f / GameManager.Instance.gameSpeed);
+        Invoke(nameof(Animate), 1f / GameManager.Instance.gameSpeed * animationspeed);
     }
 
 }
