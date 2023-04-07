@@ -5,7 +5,9 @@ using UnityEngine;
 public class SnakeCollisions : MonoBehaviour
 {
     private int playerHealth = 1;
-    int score = 0;
+    [SerializeField] GameObject score;
+    GameObject scoreText;
+    public int scoreValue = 0;
     public int numberOfChildren = 0;
     public bool inBlockCollision = false;
     public bool inSideCollision = false;
@@ -38,6 +40,9 @@ public class SnakeCollisions : MonoBehaviour
     {
         myText = Instantiate(snakeText, transform.position, Quaternion.identity);
         myText.GetComponentInChildren<TextMesh>().text = playerHealth.ToString();
+        scoreText = Instantiate(score, new Vector2(2.4f, 4.8f), Quaternion.identity);
+        scoreText.GetComponentInChildren<TextMesh>().text = "Score: " + scoreValue.ToString();
+        Time.timeScale = 1;
     }
 
     // Update is called once per frame
@@ -46,6 +51,10 @@ public class SnakeCollisions : MonoBehaviour
         myText.GetComponentInChildren<TextMesh>().text = playerHealth.ToString();
         myText.transform.position = transform.position;
         //Debug.Log(numberOfCollisions);
+        if (Time.timeScale != 0){
+            scoreValue += 1;
+            scoreText.GetComponentInChildren<TextMesh>().text = "Score: " + scoreValue.ToString();
+        }
 
         if (inBlockCollision){
             timeSinceCollision += Time.deltaTime;
@@ -62,7 +71,7 @@ public class SnakeCollisions : MonoBehaviour
 
         if (playerHealth <= 0){
             Time.timeScale = 0;
-            GameOverScreen.GetComponent<GameOver>().Setup(score);
+            GameOverScreen.GetComponent<GameOver>().Setup(scoreValue);
         }
         //myChild.transform.position = transform.position - new Vector3(0.0f, 0.4f, 0.0f);
         // if (inSideCollision){

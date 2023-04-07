@@ -382,6 +382,7 @@
 "Assets/Scripts/KillText.cs"
 "Assets/Scripts/MoveChild.cs"
 "Assets/Scripts/MoveSnake.cs"
+"Assets/Scripts/Scrolling.cs"
 "Assets/Scripts/SnakeCollisions.cs"
 "Assets/Scripts/Spawn.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"
