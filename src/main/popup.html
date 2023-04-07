@@ -1,16 +1,139 @@
+<!DOCTYPE html>
 <html>
 
-<img src="images/Techstarcade_Logo.png" alt="TechstArcade" width="500px">
+<head>
+    <script src="popup.js"></script>
+    <style>
+        .container {
+            position: relative;
+            width: 350px;
+            overflow: hidden;
+            height: 400px;
+            display: flex;
+            justify-content: space-evenly;
+            margin: auto;
+            align-content: centre;
+            direction: row;
+        }
+        
+        .responsive-iframe {
+            -moz-transform: scale(0.6, 0.6);
+            -webkit-transform: scale(0.6, 0.6);
+            -o-transform: scale(0.6, 0.6);
+            -ms-transform: scale(0.6, 0.6);
+            transform: scale(0.6, 0.6);
+            -moz-transform-origin: top left;
+            -webkit-transform-origin: top left;
+            -o-transform-origin: top left;
+            -ms-transform-origin: top left;
+            transform-origin: top centre;
+            margin: 0 auto;
+        }
 
-<button type="button">Game #1</button>
-<button type="button">Game #2</button>
-<button type="button">Game #3</button>
+        .responsive-iframe-unity {
+            -moz-transform: scale(0.35, 0.35);
+            -webkit-transform: scale(0.35, 0.35);
+            -o-transform: scale(0.35, 0.35);
+            -ms-transform: scale(0.35, 0.35);
+            transform: scale(0.35, 0.35);
+            -moz-transform-origin: top left;
+            -webkit-transform-origin: top left;
+            -o-transform-origin: top left;
+            -ms-transform-origin: top left;
+            transform-origin: top centre;
+            margin: 0 auto;
+        }
+    </style>
+</head>
 
-<div background-color="lightgrey" width="300px" border-color="green" border-width="15px" padding="50px" margin="20px">This text is placed where we want our games to go. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+<body width="350px">
 
-<!-- <iframe allow="autoplay" src="https://gokdenizcetin.com/assets/files/pongremix-star-wars/v0.1.2/game/index.html" style="border:0px #000000 none;"
-    name="Pong: Star Wars Remix" scrolling="no" allowtransparency="true" frameborder="0" marginheight="px" marginwidth="320px" height="auto" width="400px">
-    </iframe> -->
+    <img src="images/Techstarcade_Logo.png" alt="TechstArcade" width="400px">
+
+    <button type="button" id="buttonBunny">Bunny Jump</button>
+    <button type="button" id="buttonJourney">Journey Home</button>
+    <button type="button" id="buttonMine">Minesweeper</button>
+    <button type="button" id="buttonRocket">RocketMan</button>
+    <button type="button" id="buttonSnake">Snake vs. Blocks</button>
+    <button type="button" id="buttonInvader">Space Invaders</button>
+    <button type="button" id="buttonTic">Tic-Tac-Toe</button>
+
+    <div id="containerDefault">
+        <div width="300px" border-width="15px" padding="50px" margin="20px">
+            Welcome to TechstArcade, An arcade-style chrome extension packed full 
+            of your favorite retro mini-games!
+        </div>
+        <div width="300px" border-width="15px" padding="50px" margin="20px">
+            Please select a game to begin.
+        </div>
+    </div>
+
+    <div id="containerBunny" class="container">
+        <iframe id="frameBunny" 
+                class="responsive-iframe" 
+                src="https://techstartucalgary.github.io/techstarcade/src/main/games/Endless_Jumper/bunny-jump" 
+                height="670px" 
+                width="500px">
+        </iframe>
+    </div>
+
+    <div id="containerJourney" class="container">
+        <iframe id="frameJourney" 
+                class="responsive-iframe-unity" 
+                src="https://techstartucalgary.github.io/techstarcade/src/main/builds/JourneyHome/" 
+                height="600px" 
+                width="960px">
+            </iframe>
+    </div>
+
+    <div id="containerMine" class="container">
+        <iframe id="frameMine" 
+                class="responsive-iframe-unity" 
+                src="https://techstartucalgary.github.io/techstarcade/src/main/builds/Minesweeper" 
+                height="650px" 
+                width="1000px">
+            </iframe>
+    </div>
+
+    <div id="containerRocket" class="container">
+        <iframe id="frameRocket" 
+                class="responsive-iframe-unity" 
+                src="https://techstartucalgary.github.io/techstarcade/src/main/builds/RocketMan" 
+                height="600px" 
+                width="960px">
+            </iframe>
+    </div>
+
+    <div id="containerSnake" class="container">
+        <iframe id="frameSnake" 
+                class="responsive-iframe-unity" 
+                src="https://techstartucalgary.github.io/techstarcade/src/main/builds/SnakeVsBlocks" 
+                height="600px" 
+                width="960px">
+            </iframe>
+    </div>
+
+    <div id="containerInvader" class="container">
+        <iframe id="frameInvader" 
+                class="responsive-iframe" 
+                src="https://techstartucalgary.github.io/techstarcade/src/main/games/SpaceInvaders" 
+                height="600px" 
+                width="600px">
+            </iframe>
+    </div>    
+    
+    <div id="containerTic" class="container">
+        <iframe id="frameTic" 
+                class="responsive-iframe" 
+                src="https://techstartucalgary.github.io/techstarcade/src/main/games/Tic-Tac-Toe_v1" 
+                height="600px" 
+                width="600px">
+            </iframe>
+    </div>
+
+    <!-- <iframe class="responsive-iframe" src="https://techstartucalgary.github.io/techstarcade/src/main/games/Tic-Tac-Toe_v1" width="500" height="500"></iframe>
+    <iframe class="responsive-iframe" src="https://techstartucalgary.github.io/techstarcade/src/main/games/SpaceInvaders" width="500" height="500"></iframe> -->
+
+</body>
 
 </html>

@@ -30,11 +30,17 @@ public class PlayerController : MonoBehaviour
     {
         _moveVertical = Input.GetAxisRaw("Vertical");
         if (isGameOver) {
-            scoreDisplay.text = "You've died with " + score.ToString() + " points!";
+            scoreDisplay.text = "You've died with " + score.ToString() + " points \n Press 'X' to start again! ";
 
             if (Input.GetKey("x")) {
                     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                     Time.timeScale = 1;
+            }
+
+        if (Input.GetKeyDown(KeyCode.Escape)){
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1 );
+                    Time.timeScale = 1;
+
             }
         }
     }
