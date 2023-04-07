@@ -10,6 +10,9 @@ public class Spawn : MonoBehaviour
     float blockScale = 1.5f;
     [SerializeField] GameObject blocks;
     [SerializeField] GameObject food;
+    // [SerializeField] GameObject score;
+    // GameObject scoreText;
+    // public int scoreValue = 0;
     float timetillNextBlocks = 0.0f;
     float[] positions = {-3.0f, -1.5f, 0.0f, 1.5f, 3.0f};
     // Start is called before the first frame update
@@ -27,6 +30,10 @@ public class Spawn : MonoBehaviour
         if (snakeHead.GetComponent<SnakeCollisions>().inBlockCollision == false){
             timetillNextBlocks -= Time.deltaTime;
         }
+
+        // scoreValue += 1;
+        // scoreText.GetComponentInChildren<TextMesh>().text = scoreValue.ToString();
+
 
         //Debug.Log(timetillNextBlocks);
 
@@ -46,6 +53,9 @@ public class Spawn : MonoBehaviour
 
     void SpawnInitialItems()
     {
+        // scoreText = Instantiate(score, new Vector2(2.4f, 4.8f), Quaternion.identity);
+        // scoreText.GetComponentInChildren<TextMesh>().text = scoreValue.ToString();
+
         for (int i = (int)UnityEngine.Random.Range(0.0f, 3.99f); i < 4; i++){
             int p = (int)UnityEngine.Random.Range(0.0f, positions.Length-0.01f);
             Instantiate(blocks, new Vector2(positions[p], 8.5f), Quaternion.identity);
