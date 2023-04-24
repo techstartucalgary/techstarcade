@@ -5,6 +5,6 @@
     "version": "1.0",
     "action": {
         "default_popup": "main/popup.html",
-        "default_icon": "main/images/favicon-temp.png"
+        "default_icon": "main/images/favicon.png"
     }
 }
