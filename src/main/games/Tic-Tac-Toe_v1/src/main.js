@@ -33,9 +33,9 @@ function resize() {
 	let ratio = game.config.width / game.config.height;
 	if (wratio < ratio) {
 		canvas.style.width = width + 'px';
-		canvas.style.height = width / ratio + 'px';
+		canvas.style.height = width  + 'px';
 	} else {
-		canvas.style.width = height * ratio + 'px';
+		canvas.style.width = height + 'px';
 		canvas.style.height = height + 'px';
 	}
 }
