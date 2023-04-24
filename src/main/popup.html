@@ -4,11 +4,43 @@
 <head>
     <script src="popup.js"></script>
     <style>
-        .container {
+        .container-unity {
             position: relative;
-            width: 350px;
+            width: 550px;
             overflow: hidden;
             height: 400px;
+            display: flex;
+            justify-content: space-evenly;
+            margin: auto;
+            align-content: centre;
+            direction: row;
+        }
+
+        .container {
+            position: relative;
+            width: 360px;
+            overflow: hidden;
+            height: 360px;
+            display: flex;
+            justify-content: space-evenly;
+            margin: auto;
+            align-content: centre;
+            direction: row;
+        }
+
+        .logo {
+            position: relative;
+            width: 440px;
+            display: flex;
+            justify-content: space-evenly;
+            margin: auto;
+            align-content: centre;
+            direction: row;
+        }
+
+        .buttons {
+            position: relative;
+            width: 600px;
             display: flex;
             justify-content: space-evenly;
             margin: auto;
@@ -26,37 +58,41 @@
             -webkit-transform-origin: top left;
             -o-transform-origin: top left;
             -ms-transform-origin: top left;
-            transform-origin: top centre;
+            transform-origin: top left;
             margin: 0 auto;
         }
 
         .responsive-iframe-unity {
-            -moz-transform: scale(0.35, 0.35);
-            -webkit-transform: scale(0.35, 0.35);
-            -o-transform: scale(0.35, 0.35);
-            -ms-transform: scale(0.35, 0.35);
-            transform: scale(0.35, 0.35);
+            -moz-transform: scale(0.55, 0.55);
+            -webkit-transform: scale(0.55, 0.55);
+            -o-transform: scale(0.55, 0.55);
+            -ms-transform: scale(0.55, 0.55);
+            transform: scale(0.55, 0.55);
             -moz-transform-origin: top left;
             -webkit-transform-origin: top left;
             -o-transform-origin: top left;
             -ms-transform-origin: top left;
-            transform-origin: top centre;
+            transform-origin: top left;
             margin: 0 auto;
         }
+
     </style>
 </head>
 
-<body width="350px">
+<body minWidth="600px">
 
-    <img src="images/Techstarcade_Logo.png" alt="TechstArcade" width="400px">
+    <img src="images/Techstarcade_Logo.png" class="logo" alt="TechstArcade">
 
-    <button type="button" id="buttonBunny">Bunny Jump</button>
-    <button type="button" id="buttonJourney">Journey Home</button>
-    <button type="button" id="buttonMine">Minesweeper</button>
-    <button type="button" id="buttonRocket">RocketMan</button>
-    <button type="button" id="buttonSnake">Snake vs. Blocks</button>
-    <button type="button" id="buttonInvader">Space Invaders</button>
-    <button type="button" id="buttonTic">Tic-Tac-Toe</button>
+    <div class="buttons">
+        <button type="button" id="homeButton">Home</button>
+        <button type="button" id="buttonBunny">Bunny Jump</button>
+        <button type="button" id="buttonJourney">Journey Home</button>
+        <button type="button" id="buttonMine">Minesweeper</button>
+        <button type="button" id="buttonRocket">RocketMan</button>
+        <button type="button" id="buttonSnake">Snake vs. Blocks</button>
+        <button type="button" id="buttonInvader">Space Invaders</button>
+        <button type="button" id="buttonTic">Tic-Tac-Toe</button>
+    </div>
 
     <div id="containerDefault">
         <div width="300px" border-width="15px" padding="50px" margin="20px">
@@ -77,16 +113,16 @@
         </iframe>
     </div>
 
-    <div id="containerJourney" class="container">
+    <div id="containerJourney" class="container-unity">
         <iframe id="frameJourney" 
                 class="responsive-iframe-unity" 
                 src="https://techstartucalgary.github.io/techstarcade/src/main/builds/JourneyHome/" 
-                height="600px" 
-                width="960px">
+                height="650px" 
+                width="1000px">
             </iframe>
     </div>
 
-    <div id="containerMine" class="container">
+    <div id="containerMine" class="container-unity">
         <iframe id="frameMine" 
                 class="responsive-iframe-unity" 
                 src="https://techstartucalgary.github.io/techstarcade/src/main/builds/Minesweeper" 
@@ -95,21 +131,21 @@
             </iframe>
     </div>
 
-    <div id="containerRocket" class="container">
+    <div id="containerRocket" class="container-unity">
         <iframe id="frameRocket" 
                 class="responsive-iframe-unity" 
                 src="https://techstartucalgary.github.io/techstarcade/src/main/builds/RocketMan" 
-                height="600px" 
-                width="960px">
+                height="650px" 
+                width="1000px">
             </iframe>
     </div>
 
-    <div id="containerSnake" class="container">
+    <div id="containerSnake" class="container-unity">
         <iframe id="frameSnake" 
                 class="responsive-iframe-unity" 
                 src="https://techstartucalgary.github.io/techstarcade/src/main/builds/SnakeVsBlocks" 
-                height="600px" 
-                width="960px">
+                height="650px" 
+                width="1000px">
             </iframe>
     </div>
 
@@ -130,9 +166,6 @@
                 width="600px">
             </iframe>
     </div>
-
-    <!-- <iframe class="responsive-iframe" src="https://techstartucalgary.github.io/techstarcade/src/main/games/Tic-Tac-Toe_v1" width="500" height="500"></iframe>
-    <iframe class="responsive-iframe" src="https://techstartucalgary.github.io/techstarcade/src/main/games/SpaceInvaders" width="500" height="500"></iframe> -->
 
 </body>
 
