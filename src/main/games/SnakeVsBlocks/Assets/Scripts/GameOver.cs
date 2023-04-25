@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameOver : MonoBehaviour
 {
-    //[SerializeField] TextMesh scoreText;
-    public void Setup(int score){
+    [SerializeField] GameObject GameOverScore;
+    //GameObject scoreText;
+    public void Setup(int scoreValue){
         gameObject.SetActive(true);
-        //scoreText.text = "Score:" + score.ToString();
+        GameOverScore.SetActive(true);
+        GameOverScore.GetComponentInChildren<TextMesh>().text = "Score: " + scoreValue.ToString();
     }
 
     public void RestartButton(){
         Debug.Log("Restart Clicked");
+        SceneManager.LoadScene("Game");
         //scoreText.text = "Score:" + score.ToString();
     }
 
@@ -23,7 +27,7 @@ public class GameOver : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //scoreText = Instantiate(GameOverScore, new Vector2(0f, 0.8f), Quaternion.identity);
     }
 
     // Update is called once per frame
