@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
     // elements
+    var b0 = document.getElementById('buttonHome');
     var b1 = document.getElementById('buttonBunny');
     var b2 = document.getElementById('buttonJourney');
     var b3 = document.getElementById('buttonMine');
@@ -31,6 +32,11 @@ document.addEventListener('DOMContentLoaded', function() {
     c0.style.display = "block";
 
     //buttons display each game
+    b0.addEventListener('click', function() {
+        reset();
+        c0.style.display = "block";
+    }, false);
+
     b1.addEventListener('click', function() {
         reset();
         c1.style.display = "block";
