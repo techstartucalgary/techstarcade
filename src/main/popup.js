@@ -64,6 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cActive = c2;
         fActive = f2;
         fActive.src = s2;
+        fActive.focus();
     }, false);
     
     b3.addEventListener('click', function() {
@@ -72,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cActive = c3;
         fActive = f3;
         fActive.src = s3;
+        fActive.focus();
     }, false);
 
     b4.addEventListener('click', function() {
@@ -80,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cActive = c4;
         fActive = f4;
         fActive.src = s4;
+        fActive.focus();
     }, false);    
     
     b5.addEventListener('click', function() {
@@ -88,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
         cActive = c5;
         fActive = f5;
         fActive.src = s5;
+        fActive.focus();
     }, false);    
     
     b6.addEventListener('click', function() {
