@@ -3,17 +3,19 @@
 
 <head>
     <script src="popup.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=VT323">
     <style>
         .container-unity {
             position: relative;
             width: 550px;
             overflow: hidden;
-            height: 400px;
+            height: 330px;
             display: flex;
             justify-content: space-evenly;
             margin: auto;
             align-content: centre;
             direction: row;
+            border: 3px solid #90C290;
         }
 
         .container {
@@ -26,6 +28,7 @@
             margin: auto;
             align-content: centre;
             direction: row;
+            border: 3px solid #90C290;
         }
 
         .logo {
@@ -46,8 +49,55 @@
             margin: auto;
             align-content: centre;
             direction: row;
+            font-family: 'VT323', sans-serif;
+            padding: 0px 0px 4px 0px;
+            gap: 10px;
         }
-        
+
+        .button {
+            background-color: #8963BA;
+            border: solid transparent;
+            border-radius: 16px;
+            border-width: 0 0 4px;
+            box-sizing: border-box;
+            color: #FFFFFF;
+            cursor: pointer;
+            display: inline-block;
+            font-family: 'VT323', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: .8px;
+            line-height: 20px;
+            margin: 0;
+            outline: none;
+            padding: 2px 0px;
+            text-align: center;
+            text-transform: uppercase;
+            touch-action: manipulation;
+            transform: translateZ(0);
+            vertical-align: middle;
+            width: 100%;
+        }
+
+        .button:active{
+            background-color: #79439A;
+        }
+
+        .button:after {
+            background-clip: padding-box;
+            background-color: #AD87DE;
+            border: solid transparent;
+            border-radius: 16px;
+            border-width: 0 0 4px;
+            bottom: -4px;
+            content: "";
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: -1;
+        }
+    
         .responsive-iframe {
             -moz-transform: scale(0.6, 0.6);
             -webkit-transform: scale(0.6, 0.6);
@@ -76,32 +126,39 @@
             margin: 0 auto;
         }
 
+        .font{
+            font-family: 'VT323', sans-serif;
+            font-size: 18px;
+            color: #90C290;
+            letter-spacing: .8px;
+        }
+
     </style>
 </head>
 
-<body style="background-color:#2D2D2A;">
+<body style="background-color:#2D2D2A;" class="font">
 
     <img src="images/Techstarcade_Logo.png" class="logo" alt="TechstArcade">
 
     <div class="buttons">
-        <button type="button" id="buttonHome">Home</button>
-        <button type="button" id="buttonBunny">Bunny Jump</button>
-        <button type="button" id="buttonJourney">Journey Home</button>
-        <button type="button" id="buttonMine">Minesweeper</button>
+        <button class="button" id="buttonHome">Home</button>
+        <button class="button" id="buttonBunny">Bunny Jump</button>
+        <button class="button" id="buttonJourney">Journey Home</button>
+        <button class="button" id="buttonMine">Minesweeper</button>
     </div>
     <div class="buttons">
-        <button type="button" id="buttonRocket">RocketMan</button>
-        <button type="button" id="buttonSnake">Snake vs. Blocks</button>
-        <button type="button" id="buttonInvader">Space Invaders</button>
-        <button type="button" id="buttonTic">Tic-Tac-Toe</button>
+        <button class="button" id="buttonRocket">RocketMan</button>
+        <button class="button" id="buttonSnake">Snake vs. Blocks</button>
+        <button class="button" id="buttonInvader">Space Invaders</button>
+        <button class="button" id="buttonTic">Tic-Tac-Toe</button>
     </div>
 
     <div id="containerDefault">
-        <div width="300px" border-width="15px" padding="50px" margin="20px">
+        <div width="300px" border-width="15px" padding="50px" margin="20px" class="font">
             Welcome to TechstArcade, An arcade-style chrome extension packed full 
             of your favorite retro mini-games!
         </div>
-        <div width="300px" border-width="15px" padding="50px" margin="20px">
+        <div width="300px" border-width="15px" padding="50px" margin="20px" class="font">
             Please select a game to begin.
         </div>
     </div>
@@ -110,8 +167,8 @@
         <iframe id="frameBunny" 
                 class="responsive-iframe" 
                 src="https://techstartucalgary.github.io/techstarcade/src/main/games/Endless_Jumper/bunny-jump" 
-                height="670px" 
-                width="500px">
+                height="614px" 
+                width="614px">
         </iframe>
     </div>
 
@@ -164,8 +221,8 @@
         <iframe id="frameTic" 
                 class="responsive-iframe" 
                 src="https://techstartucalgary.github.io/techstarcade/src/main/games/Tic-Tac-Toe_v1" 
-                height="600px" 
-                width="600px">
+                height="614px" 
+                width="614px">
             </iframe>
     </div>
 
