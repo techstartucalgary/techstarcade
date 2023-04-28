@@ -41,6 +41,34 @@
             direction: row;
         }
 
+        .advert {
+            position: relative;
+            width: 225px;
+            height: 150px;
+            display: flex;
+            margin: auto;
+            border: 3px solid #90C290;
+        }
+
+        .columns {
+            position: relative;
+            display: flex;
+            justify-content: space-evenly;
+            margin: auto;
+            align-content: centre;
+            direction: row;
+        }
+
+        .homepage {
+            padding: 0px 50px;
+            margin: 20px;
+            font-family: 'VT323', sans-serif;
+            font-size: 18px;
+            color: #90C290;
+            letter-spacing: .8px;
+            text-align: center;
+        }
+
         .buttons {
             position: relative;
             width: 600px;
@@ -154,13 +182,24 @@
     </div>
 
     <div id="containerDefault">
-        <div width="300px" border-width="15px" padding="50px" margin="20px" class="font">
+        <div class="homepage">
             Welcome to TechstArcade, An arcade-style chrome extension packed full 
-            of your favorite retro mini-games!
+            of your favorite retro mini-games! 
+            <br>
+            <b>Please select a game to begin.</b>
+            <br>
+            <br>
+            Check out this weeks promotions:
+            <br>
         </div>
-        <div width="300px" border-width="15px" padding="50px" margin="20px" class="font">
-            Please select a game to begin.
+
+        <div class="columns"> 
+            <img src="images/ad1.png" class="advert" alt="Advert1"/>
+            <img src="images/ad2.png" class="advert" alt="Advert2"/>
         </div>
+
+        <br>
+        <img src="images/bannerAd1.png" width="600px" height="80px" alt="Banner"/>    
     </div>
 
     <div id="containerBunny" class="container">
