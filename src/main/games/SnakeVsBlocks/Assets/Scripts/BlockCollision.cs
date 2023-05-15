@@ -12,19 +12,17 @@ public class BlockCollision : MonoBehaviour
     private bool myCollision = false;
 
     int snakeHealth;
-    
-    // public int BlockValue {
-    //     get {
-    //         return blockValue;
-    //     }
-    // }
-    // Start is called before the first frame update
+
     void Start()
     {
         snakeHead = GameObject.Find("SnakeHead");
         rb = gameObject.GetComponent<Rigidbody2D>();
         myText = Instantiate(blockText, transform.position, Quaternion.identity);
-        blockValue = (int)UnityEngine.Random.Range(1.1f, 5.9f);
+        int runTime = (int)(Time.time - snakeHead.GetComponent<SnakeCollisions>().startTime)/10;
+        if (runTime > 26)
+            runTime = 26;
+        blockValue = (int)UnityEngine.Random.Range(1.1f, 5.9f + runTime);
+        gameObject.GetComponent<Renderer>().material.color = new Color (243f/255f, (260 - blockValue*10)/255f, 22/255f, 1);
         myText.GetComponentInChildren<TextMesh>().text = blockValue.ToString();
         snakeHealth = snakeHead.GetComponent<SnakeCollisions>().PlayerHealth;
     }
@@ -32,7 +30,6 @@ public class BlockCollision : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(blockValue);
         if (blockValue == 0){
             Destroy(myText);
             Destroy(gameObject);
@@ -41,12 +38,12 @@ public class BlockCollision : MonoBehaviour
         if (snakeHead.GetComponent<SnakeCollisions>().inBlockCollision == true){
             if (myCollision && snakeHead.GetComponent<SnakeCollisions>().PlayerHealth != snakeHealth) {
                 blockValue--;
+                StartCoroutine(waiter());
             }
             rb.Sleep();
             rb.constraints = RigidbodyConstraints2D.FreezePositionY;
         }
         else {
-            // Debug.Log(myCollision);
             rb.WakeUp();
             rb.constraints = RigidbodyConstraints2D.None;
             rb.constraints = RigidbodyConstraints2D.FreezePositionX;
@@ -59,28 +56,21 @@ public class BlockCollision : MonoBehaviour
             Destroy(myText);
             Destroy(gameObject);
         }
-        //Debug.Log(rb.IsAwake());
     }
     
-    // private void OnTriggerEnter2D(Collider2D collision) {
-    //     rb.Sleep();
-    //     Debug.Log("Sleeping");
-
-    // }
 
     private void OnTriggerEnter2D(Collider2D other) {
-       // if(other.gameObject.name != "SnakeHead"){
-            //Debug.Log("ENTERING");
+        if(other.gameObject.name == "SnakeHead")
             myCollision = true;
-            //rb.Sleep();
-       // }
     }
     private void OnTriggerExit2D(Collider2D other) {
-        //if(other.gameObject.name != "SnakeHead"){
-            // Debug.Log("Awake");
-            //Debug.Log("Awake Now 2");
+        if(other.gameObject.name == "SnakeHead")
             myCollision = false;
-            //rb.WakeUp();
-        //}
+    }
+
+    IEnumerator waiter(){
+        gameObject.GetComponent<Renderer>().material.color = Color.white;
+        yield return new WaitForSeconds(0.5f);
+        gameObject.GetComponent<Renderer>().material.color = new Color (243f/255f, (260 - blockValue*10)/255f, 22/255f, 1);
     }
 }

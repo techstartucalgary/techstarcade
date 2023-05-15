@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -5177388603050735206, guid: 8884154dfe85442a3a3578be807dbcdf, type: 3}
-  m_Color: {r: 0.9528302, g: 0.74400306, b: 0.084496215, a: 1}
+  m_Color: {r: 0.9528302, g: 0.9019608, b: 0.084496215, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa5ee0667e5b2f4392511d21011af71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockText: {fileID: 3530583575158611525, guid: 8b085148d31f5cc4fa027c938166ed78, type: 3}
+  blockText: {fileID: 3946848672015118871, guid: eaf065eaac824b34cbc01a9390096911, type: 3}
   blockValue: 0
 --- !u!60 &7154457903401445668
 PolygonCollider2D:
@@ -236,4 +236,3 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
-

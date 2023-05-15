@@ -21,7 +21,10 @@ public class FoodCollision : MonoBehaviour
         snakeHead = GameObject.Find("SnakeHead");
         rb = gameObject.GetComponent<Rigidbody2D>();
         myText = Instantiate(foodText, transform.position, Quaternion.identity);
-        foodValue = (int)UnityEngine.Random.Range(1.1f, 5.9f);
+        int runTime = (int)(Time.time - snakeHead.GetComponent<SnakeCollisions>().startTime)/30;
+        if (runTime > 15)
+            runTime = 15;
+        foodValue = (int)UnityEngine.Random.Range(1.1f, 5.9f + runTime);
         myText.GetComponentInChildren<TextMesh>().text = foodValue.ToString();
     }
 
