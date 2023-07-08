@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3056069, g: 0.9150943, b: 0.87612844, a: 1}
+  m_Color: {r: 0.23529412, g: 0.4627451, b: 0.79607844, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1696,6 +1696,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blocks: {fileID: 652304479243944041, guid: 44f76caf5a7f63446abd1b968f022e44, type: 3}
   food: {fileID: 7834588088725332585, guid: b2ea8acae80bc6d44ae9c9a29fb02b7e, type: 3}
+  blocksWall: {fileID: 7387518432545050505, guid: fefc6af26904b9246b2828744c1064ff, type: 3}
 --- !u!1 &1970396231
 GameObject:
   m_ObjectHideFlags: 0
@@ -1747,7 +1748,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3056069, g: 0.9150943, b: 0.87612844, a: 1}
+  m_Color: {r: 0.23474543, g: 0.46212596, b: 0.7924528, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

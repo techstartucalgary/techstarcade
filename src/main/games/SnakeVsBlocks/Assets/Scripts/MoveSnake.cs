@@ -8,6 +8,8 @@ public class MoveSnake : MonoBehaviour
     Vector3[] prevPosition = new Vector3[3];
     float walkSpeed;
     float inputHorizontal;
+
+    float timeSc = 0;
     
     public Vector3[] PrevPosition {
         get {
@@ -18,8 +20,8 @@ public class MoveSnake : MonoBehaviour
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
-        walkSpeed = 5.0f;
-
+        walkSpeed = 10.0f;
+        timeSc = Time.timeScale;
         prevPosition[0] = new Vector3(0.0f, 0.0f, 0.0f);
         prevPosition[1] = new Vector3(0.0f, 0.0f, 0.0f);
         prevPosition[2] = transform.position;
@@ -32,17 +34,12 @@ public class MoveSnake : MonoBehaviour
         prevPosition[1] = prevPosition[2];
         prevPosition[2] = transform.position;
 
-        inputHorizontal = Input.GetAxisRaw("Horizontal");   
+        inputHorizontal = Input.GetAxisRaw("Horizontal"); 
+        walkSpeed += (Time.timeScale - timeSc) * 2.0f;
+        timeSc = Time.timeScale;
         
-        //rb.setForce(new Vector2(0f, 0f));
-        //rb.Sleep();
-        //print(inputHorizontal);
         if(inputHorizontal != 0){
             rb.AddForce(new Vector2(inputHorizontal * walkSpeed, 0f));
-            //inputHorizontal = 0;
-            //rb.MovePosition(new Vector2(5, 0f));
-            //inputHorizontal = 0;
-            //transform.position = new Vector3(1,0,0);
         }
     }
 }

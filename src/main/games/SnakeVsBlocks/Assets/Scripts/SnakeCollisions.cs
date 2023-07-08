@@ -18,7 +18,11 @@ public class SnakeCollisions : MonoBehaviour
     GameObject myChild;
     [SerializeField] GameObject GameOverScreen;
 
+    public float startTime = 0;
+
     float timeSinceCollision = 0;
+
+    int updateSpeed = 0;
 
     public int PlayerHealth {
         get {
@@ -28,12 +32,6 @@ public class SnakeCollisions : MonoBehaviour
             playerHealth = value;
         }
     }
-
-    // public int ChildNumber {
-    //     get {
-    //         return childNumber;
-    //     }
-    // }
     
     // Start is called before the first frame update
     void Start()
@@ -42,7 +40,8 @@ public class SnakeCollisions : MonoBehaviour
         myText.GetComponentInChildren<TextMesh>().text = playerHealth.ToString();
         scoreText = Instantiate(score, new Vector2(2.4f, 4.8f), Quaternion.identity);
         scoreText.GetComponentInChildren<TextMesh>().text = "Score: " + scoreValue.ToString();
-        Time.timeScale = 1;
+        Time.timeScale = 2;
+        startTime = Time.time;
     }
 
     // Update is called once per frame
@@ -50,22 +49,17 @@ public class SnakeCollisions : MonoBehaviour
     {
         myText.GetComponentInChildren<TextMesh>().text = playerHealth.ToString();
         myText.transform.position = transform.position;
-        //Debug.Log(numberOfCollisions);
-        if (Time.timeScale != 0){
-            scoreValue += 1;
-            scoreText.GetComponentInChildren<TextMesh>().text = "Score: " + scoreValue.ToString();
+        if (updateSpeed >= 50 && Time.timeScale < 10.0f){
+            updateSpeed = 0;
+            Time.timeScale += 0.5f;
         }
 
         if (inBlockCollision){
             timeSinceCollision += Time.deltaTime;
-            //Debug.Log(timeSinceCollision);
 
-            if (timeSinceCollision > 0.2f){
+            if (timeSinceCollision > (0.4f + (0.05f * (Time.timeScale - 2.0f)))){ //CHANGE
                 playerHealth--;
-                //GameObject block = collision.gameObject;
-                //collision.gameObject.GetComponent<BlockCollision>().blockValue--;
                 timeSinceCollision = 0;
-
             }
         }
 
@@ -73,10 +67,6 @@ public class SnakeCollisions : MonoBehaviour
             Time.timeScale = 0;
             GameOverScreen.GetComponent<GameOver>().Setup(scoreValue);
         }
-        //myChild.transform.position = transform.position - new Vector3(0.0f, 0.4f, 0.0f);
-        // if (inSideCollision){
-        //     transform.position = new Vector3(transform.position.x, -1.5f, transform.position.z);
-        // }
 
     }
 
@@ -85,82 +75,42 @@ public class SnakeCollisions : MonoBehaviour
             if (playerHealth == 1){ //If no child set yet
                 numberOfChildren++;
                 playerHealth += collision.gameObject.GetComponent<FoodCollision>().FoodValue;
-                //Debug.Log(playerHealth);
+                scoreValue += 10*collision.gameObject.GetComponent<FoodCollision>().FoodValue;
+                updateSpeed += collision.gameObject.GetComponent<FoodCollision>().FoodValue;
+                scoreText.GetComponentInChildren<TextMesh>().text = "Score: " + scoreValue.ToString();
                 myChild = Instantiate(snakeChild, transform.position - new Vector3(0.0f, 0.4f, 0.0f), Quaternion.identity);
                 myChild.transform.SetParent(transform);
             }
             else { //GO BACK TO UPDATING CHILDREN
                 playerHealth += collision.gameObject.GetComponent<FoodCollision>().FoodValue;
-                //Debug.Log(playerHealth);
+                scoreValue += 10*collision.gameObject.GetComponent<FoodCollision>().FoodValue;
+                updateSpeed += collision.gameObject.GetComponent<FoodCollision>().FoodValue;
+                scoreText.GetComponentInChildren<TextMesh>().text = "Score: " + scoreValue.ToString();
             }
             myText.GetComponentInChildren<TextMesh>().text = playerHealth.ToString();
         }
 
-        // if (collision.gameObject.name == "Blocks(Clone)"){ //If touches block
-        //     inSideCollision = true;
-        //     transform.position = new Vector3(transform.position.x, -1.5f, transform.position.z);
-        //     //transform.position = new Vector3(transform.position.x, -1.5f, transform.position.z);
-        //     //Debug.Log("YES");
-        // }
-
     }
 
-    // private void OnCollisionExit2D(Collision2D collision) {
 
-    //     if (collision.gameObject.name == "Blocks(Clone)"){ //If touches block
-    //         inSideCollision = false;
-            
-    //         //Debug.Log("YES");
-    //     }
-
-    // }
 
     private void OnTriggerEnter2D(Collider2D collision) {
         numberOfCollisions++;
         float yPosition = collision.gameObject.transform.position.y;
-        //Debug.Log("ENTER");      
-        //Debug.Log(transform.position.y);
+
         if(yPosition - transform.position.y > 0.97f){
-            //Debug.Log("Huzzah");
             inBlockCollision = true;
         }
         playerHealth--;
-        //GameObject block = collision.gameObject;
-        //block.GetComponent<BlockCollision>().blockValue--;
-        //Debug.Log(inBlockCollision);
     }
 
-    // private void OnTriggerStay2D(Collider2D collision) {
-    //     timeSinceCollision += Time.deltaTime;
-    //     Debug.Log(timeSinceCollision);
 
-    //     if (timeSinceCollision > 5.0f){
-    //         playerHealth--;
-    //         //GameObject block = collision.gameObject;
-    //         collision.gameObject.GetComponent<BlockCollision>().blockValue--;
-    //         timeSinceCollision = 0;
-
-    //     }
-    //     //Debug.Log(block.GetComponent<BlockCollision>().blockValue);
-    // }
-
-    // private void OnTriggerStay2D(Collider2D collision) {
-    //     Debug.Log("HERE");
-    // }
     private void OnTriggerExit2D(Collider2D collision) {
-        //Debug.Log("EXIT");
         numberOfCollisions--;
         if (numberOfCollisions == 0){
             inBlockCollision = false;
         }
-        //Debug.Log(inBlockCollision);
 
     }
 
-    // private void OnCollisionExit2D(Collision2D collision) {
-    //     if (collision.gameObject.name == "Blocks(Clone)"){ //If touches block
-    //         //Time.timeScale = 1f;
-    //         Debug.Log("EXIT");
-    //     }
-    // }
 }

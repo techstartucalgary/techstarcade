@@ -29,22 +29,18 @@ public class MoveChild : MonoBehaviour
             transform.localScale = new Vector3(1f, 1f, 1f);
         }
 
-        //Debug.Log(childNumber);
-        //Debug.Log(snakeHead.GetComponent<SnakeCollisions>().PlayerHealth);
         if (childNumber + 1 != snakeHead.GetComponent<SnakeCollisions>().PlayerHealth){
             snakeHead.GetComponent<SnakeCollisions>().numberOfChildren++;
             myChild = Instantiate(snakeChild, transform.position - new Vector3(0.0f, 0.35f, 0.0f), Quaternion.identity);
             myChild.transform.SetParent(transform);
         }
 
-        //Debug.Log(transform.childCount);
-
         prevPosition[0] = transform.position;
         prevPosition[1] = transform.position;
         prevPosition[2] = transform.position;
         prevPosition[3] = transform.position;
+        //prevPosition[4] = transform.position;
         prevPosition[4] = transform.position;
-        prevPosition[5] = transform.position;
     }
 
     // Update is called once per frame
@@ -66,8 +62,8 @@ public class MoveChild : MonoBehaviour
         prevPosition[1] = prevPosition[2];
         prevPosition[2] = prevPosition[3];
         prevPosition[3] = prevPosition[4];
-        prevPosition[4] = prevPosition[5];
-        prevPosition[5] = transform.position;
+        //prevPosition[4] = prevPosition[5];
+        prevPosition[4] = transform.position;
 
         //for the first child
         if (transform.childCount == 0 && snakeHead.GetComponent<SnakeCollisions>().PlayerHealth > childNumber + 1){

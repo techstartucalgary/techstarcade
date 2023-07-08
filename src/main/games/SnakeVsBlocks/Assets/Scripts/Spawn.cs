@@ -10,9 +10,8 @@ public class Spawn : MonoBehaviour
     float blockScale = 1.5f;
     [SerializeField] GameObject blocks;
     [SerializeField] GameObject food;
-    // [SerializeField] GameObject score;
-    // GameObject scoreText;
-    // public int scoreValue = 0;
+    [SerializeField] GameObject blocksWall;
+
     float timetillNextBlocks = 0.0f;
     float[] positions = {-3.0f, -1.5f, 0.0f, 1.5f, 3.0f};
     // Start is called before the first frame update
@@ -31,58 +30,78 @@ public class Spawn : MonoBehaviour
             timetillNextBlocks -= Time.deltaTime;
         }
 
-        // scoreValue += 1;
-        // scoreText.GetComponentInChildren<TextMesh>().text = scoreValue.ToString();
-
-
-        //Debug.Log(timetillNextBlocks);
-
-        //Time till next blocks
-        //If time till next block - blockLength*speed (modular, 3 line, 2 line, 1 line) & odds it produces food
-            //produce food or foods in random x location
-        //If time till next blocks
         if (timetillNextBlocks <= 0){
             SpawnItems();
             timetillNextBlocks = (int)UnityEngine.Random.Range(4.1f, 5.9f)*(blockScale)/2.0f; //*speed*amountOfBlockLinesWe want to skip
-
-            //produce random amount of block in random spots
-            //set time for next blocks    
         }
 
     }
 
     void SpawnInitialItems()
     {
-        // scoreText = Instantiate(score, new Vector2(2.4f, 4.8f), Quaternion.identity);
-        // scoreText.GetComponentInChildren<TextMesh>().text = scoreValue.ToString();
-
-        for (int i = (int)UnityEngine.Random.Range(0.0f, 3.99f); i < 4; i++){
-            int p = (int)UnityEngine.Random.Range(0.0f, positions.Length-0.01f);
-            Instantiate(blocks, new Vector2(positions[p], 8.5f), Quaternion.identity);
-            positions = Array.FindAll(positions, i => i != positions[p]).ToArray();
+        int randomNumber = (int)UnityEngine.Random.Range(1.01f, 15.99f);
+        for (int i = 1; i < 6; i++){
+            if (randomNumber - i <= 0){
+                randomNumber = i;
+                break;
+            }
+            else
+                randomNumber -= i;
         }
-        Vector2 foodVector = new Vector2((2.0f - (int)UnityEngine.Random.Range(0.0f, 4.49f))*(blockScale), 5.5f);
+
+        for (int i = 0; i < randomNumber; i++){
+            int p = (int)UnityEngine.Random.Range(0.01f, positions.Length-0.01f);
+            Instantiate(blocks, new Vector2(positions[p], 8.5f), Quaternion.identity);
+            positions = Array.FindAll(positions, j => j != positions[p]).ToArray();
+        }
+        Vector2 foodVector = new Vector2((2.0f - (int)UnityEngine.Random.Range(0.01f, 4.49f))*(blockScale), 5.5f);
         Instantiate(food, foodVector, Quaternion.identity);
         timetillNextBlocks = (int)UnityEngine.Random.Range(5.1f, 6.9f)*(blockScale)/2.0f; //*speed*amountOfBlockLinesWe want to skip
         positions = new[] {-3.0f, -1.5f, 0.0f, 1.5f, 3.0f};
+        for (int i = 0; i < 4; i++){
+            if (UnityEngine.Random.Range(0.01f, 3.0f) < 1.0f){
+                Instantiate(blocksWall, new Vector2(positions[i] + 0.75f, 7.0f), Quaternion.identity);
+                if (UnityEngine.Random.Range(0.01f, 2.0f) < 1.0f){
+                    Instantiate(blocksWall, new Vector2(positions[i] + 0.75f, 5.5f), Quaternion.identity);
+                }
+            }
+        }
 
     }
 
     void SpawnItems()
     {
-        for (int i = (int)UnityEngine.Random.Range(0.0f, 3.9f); i < 4; i++){
-            int p = (int)UnityEngine.Random.Range(0.0f, positions.Length-0.01f);
+        int randomNumber = (int)UnityEngine.Random.Range(1.01f, 15.99f);
+        for (int i = 1; i < 6; i++){
+            if (randomNumber - i <= 0){
+                randomNumber = i;
+                break;
+            }
+            else
+                randomNumber -= i;
+        }
+
+        for (int i = 0; i < randomNumber; i++){
+            int p = (int)UnityEngine.Random.Range(0.01f, positions.Length-0.01f);
             Instantiate(blocks, new Vector2(positions[p], 8.5f), Quaternion.identity);
-            positions = Array.FindAll(positions, i => i != positions[p]).ToArray();
+            positions = Array.FindAll(positions, j => j != positions[p]).ToArray();
         }
         positions = new[] {-3.0f, -1.5f, 0.0f, 1.5f, 3.0f};
-        for (int i = (int)UnityEngine.Random.Range(0.0f, 2.5f); i < 3; i++){
-            int p = (int)UnityEngine.Random.Range(0.0f, positions.Length-0.01f);
+        for (int i = (int)UnityEngine.Random.Range(0.01f, 1.5f); i < 2; i++){
+            int p = (int)UnityEngine.Random.Range(0.01f, positions.Length-0.01f);
             Vector2 foodVector = new Vector2(positions[p], (8.5f - (int)UnityEngine.Random.Range(1.1f, 2.9f)*blockScale));
             Instantiate(food, foodVector, Quaternion.identity);
-            positions = Array.FindAll(positions, i => i != positions[p]).ToArray();
+            positions = Array.FindAll(positions, j => j != positions[p]).ToArray();
         }
         positions = new[] {-3.0f, -1.5f, 0.0f, 1.5f, 3.0f};
+        for (int i = 0; i < 4; i++){
+            if (UnityEngine.Random.Range(0.01f, 3.0f) < 1.0f){
+                Instantiate(blocksWall, new Vector2(positions[i] + 0.75f, 7.0f), Quaternion.identity);
+                if (UnityEngine.Random.Range(0.01f, 2.0f) < 1.0f){
+                    Instantiate(blocksWall, new Vector2(positions[i] + 0.75f, 5.5f), Quaternion.identity);
+                }
+            }
+        }
 
     }
 }
